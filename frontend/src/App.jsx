@@ -1,4 +1,3 @@
-
 import { Routes , Route } from "react-router-dom";
 import LandingPage from './pages/shared/LandingPage.jsx';
 import Properties from "./pages/shared/Properties.jsx";
@@ -16,6 +15,10 @@ import SellerRequests from "./pages/admin/SellerRequests.jsx";
 import AdminProperties from "./pages/admin/AdminProperties.jsx";
 import AdminInquiries from './pages/admin/AdminInquiries';
 import AdminContact from "./pages/admin/AdminContact.jsx";
+import AddProperty from "./pages/selller/AddProperty.jsx";
+import SellerLayout from "./components/SellerLayout.jsx";
+import SellerDashboard from "./pages/selller/SellerDashboard.jsx";
+
 
 const App = () => {
   return (
@@ -28,6 +31,10 @@ const App = () => {
         <Route path="/forgot-password" element={ <ForgotPasssword /> }
          />
          <Route path="/profile" element={<Profile/> } /> 
+         <Route element={<SellerLayout />} >
+          <Route path="/dashboard" element={<SellerDashboard/>} />
+          <Route path="/add-property" element={<AddProperty/>} />
+         </Route>
          <Route path="/reset-password/:token" element={ <ResetPassword />} />
         <Route path="/" element={ <LandingPage/> } />
         <Route path="/properties" element={ <Properties /> } />

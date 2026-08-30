@@ -1161,31 +1161,72 @@ export const reviewSectionStyles = {
   emptyState: "text-center text-[#6b7280] p-8 bg-[#f9fafb] rounded-2xl",
 };
 
-export const sellerSidebarStyles = {
-  // Backdrop
-  backdrop: "fixed inset-0 w-full h-full bg-black/30 backdrop-blur-sm z-[950] transition-all duration-300",
-  backdropVisible: "opacity-100 visible",
-  backdropHidden: "opacity-0 invisible hidden md:block",
+// export const sellerSidebarStyles = {
+//   // Backdrop
+//   backdrop: "fixed inset-0 w-full h-full bg-black/30 backdrop-blur-sm z-[950] transition-all duration-300",
+//   backdropVisible: "opacity-100 visible",
+//   backdropHidden: "opacity-0 invisible hidden md:block",
 
-  // Sidebar container
-  sidebar: "fixed left-0 top-0 w-[260px] h-screen bg-white border-r border-[#f1f5f9] py-8 px-5 flex flex-col z-[1000] transition-transform duration-300",
+//   // Sidebar container
+//   sidebar: "fixed left-0 top-0 w-[260px] h-screen bg-white border-r border-[#f1f5f9] py-8 px-5 flex flex-col z-[1000] transition-transform duration-300",
+//   sidebarOpen: "translate-x-0",
+//   sidebarClosed: "-translate-x-full md:translate-x-0",
+
+//   // Logo section
+//   logoContainer: "px-3 mb-10 flex justify-between items-center",
+
+//   // Navigation
+//   nav: "flex flex-col gap-1.5 flex-1",
+//   navLink: "flex items-center gap-4 py-3.5 px-4 rounded-xl no-underline text-[0.9375rem] transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]",
+//   navLinkActive: "font-bold text-primary bg-primary-light",
+//   navLinkInactive: "font-medium text-[#64748b] hover:bg-gray-50",
+
+//   // Logout
+//   logoutContainer: "border-t border-[#f1f5f9] pt-6 mt-auto",
+//   logoutButton: "w-full flex items-center gap-4 py-3.5 px-4 rounded-xl border-none bg-transparent text-[0.9375rem] font-semibold text-[#dc2626] cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-red-50",
+// };
+
+export const sellerSidebarStyles = {
+  // Backdrop - only used on mobile
+  backdrop:
+    "fixed inset-0 w-full h-full bg-black/30 backdrop-blur-sm z-[950] md:hidden transition-opacity duration-300",
+
+  backdropVisible: "opacity-100 visible",
+
+  backdropHidden: "opacity-0 invisible pointer-events-none",
+
+  // Sidebar
+  sidebar:
+    "fixed left-0 top-0 w-[260px] h-screen bg-white border-r border-[#f1f5f9] py-8 px-5 flex flex-col z-[1000] transition-transform duration-300",
+
   sidebarOpen: "translate-x-0",
+
   sidebarClosed: "-translate-x-full md:translate-x-0",
 
-  // Logo section
-  logoContainer: "px-3 mb-10 flex justify-between items-center",
+  // Logo
+  logoContainer:
+    "px-3 mb-10 flex justify-between items-center",
 
   // Navigation
-  nav: "flex flex-col gap-1.5 flex-1",
-  navLink: "flex items-center gap-4 py-3.5 px-4 rounded-xl no-underline text-[0.9375rem] transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]",
-  navLinkActive: "font-bold text-primary bg-primary-light",
-  navLinkInactive: "font-medium text-[#64748b] hover:bg-gray-50",
+  nav:
+    "flex flex-col gap-1.5 flex-1",
+
+  navLink:
+    "flex items-center gap-4 py-3.5 px-4 rounded-xl no-underline text-[0.9375rem] transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]",
+
+  navLinkActive:
+    "font-bold text-primary bg-primary-light",
+
+  navLinkInactive:
+    "font-medium text-[#64748b] hover:bg-gray-50",
 
   // Logout
-  logoutContainer: "border-t border-[#f1f5f9] pt-6 mt-auto",
-  logoutButton: "w-full flex items-center gap-4 py-3.5 px-4 rounded-xl border-none bg-transparent text-[0.9375rem] font-semibold text-[#dc2626] cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-red-50",
-};
+  logoutContainer:
+    "border-t border-[#f1f5f9] pt-6 mt-auto",
 
+  logoutButton:
+    "w-full flex items-center gap-4 py-3.5 px-4 rounded-xl border-none bg-transparent text-[0.9375rem] font-semibold text-[#dc2626] cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-red-50",
+};
 export const logoStyles = {
   link: "font-bold text-primary flex items-center gap-3 no-underline whitespace-nowrap",
   iconWrapper: "bg-primary text-white p-2 rounded-[10px] flex items-center justify-center shadow-[0_4px_12px_rgba(13,110,89,0.2)]",

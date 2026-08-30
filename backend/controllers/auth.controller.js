@@ -128,6 +128,9 @@ export const login = async (req, res) => {
 // to get profile
 
 export const getMe = async (req, res) => {
+   console.log("GET /me reached");
+  console.log("req.user:", req.user);
+
   try {
     const user = await User.findById(req.user.id).select("-password");
     if (!user) {

@@ -15,8 +15,8 @@ const SellerRequests = () => {
     useEffect(() => {
         const fetchRequest = async () =>{
             try{
-              const res = await axios.get(`${API_URL}/api/admin/pending-seller` , {
-                headers: { Authorization: ` Bearer ${token}`},
+              const res = await axios.get(`${API_URL}/api/admin/pending-sellers` , {
+                headers: { Authorization: `Bearer ${token}`},
               });
 
               if( res.data.success){
@@ -148,4 +148,4 @@ const SellerRequests = () => {
   )
 }
 
-export default SellerRequests
+export default SellerRequests;

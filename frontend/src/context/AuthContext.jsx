@@ -129,31 +129,65 @@ export const AuthProvider =  ( {children }) =>{
 
    // to get the user details
    // Fetch the latest user details from the backend
-   const refreshUser = async () =>{
-    if( !token) return;
-    try{
+//    const refreshUser = async () =>{
+//     if( !token) return;
+//     try{
 
-        const res  = await axios.get(`${API_URL}/api/me` , {
-            headers: { Authorization : `Bearer ${token}`},
-        });
-        if( res.data.success){
-            const updateUser = res.data.user;
-            setUser(updateUser);
+//         const res  = await axios.get(`${API_URL}/api/auth/me` , {
+//             headers: { Authorization : `Bearer ${token}`},
+//         });
+//         if( res.data.success){
+//             const updateUser = res.data.user;
+//             setUser(updateUser);
 
-            const storage = localStorage.getItem("token")
-            ? localStorage : sessionStorage;
+//             const storage = localStorage.getItem("token")
+//             ? localStorage : sessionStorage;
 
-            storage.setItem("user" , JSON.stringify(updateUser));
-        }
+//             storage.setItem("user" , JSON.stringify(updateUser));
+//         }
 
+//     }
+//     catch(error){
+
+//         console.log("Failed to  refresh the user: " , error);
+
+//     }
+//    }
+     
+const refreshUser = async () => {
+  if (!token) return;
+
+  try {
+    const res = await axios.get(`${API_URL}/api/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("ME RESPONSE:", res.data);
+
+    if (res.data.success) {
+      const updateUser = res.data.user;
+
+      console.log("UPDATED USER:", updateUser);
+      console.log("APPROVED:", updateUser?.isApproved);
+
+      setUser(updateUser);
+
+      const storage = localStorage.getItem("token")
+        ? localStorage
+        : sessionStorage;
+
+      storage.setItem("user", JSON.stringify(updateUser));
     }
-    catch(error){
-
-        console.log("Failed to  refresh the user: " , error);
-
-    }
-   }
-
+  } catch (error) {
+    console.log(
+      "Failed to refresh user:",
+      error.response?.status,
+      error.response?.data
+    );
+  }
+};
 
     return  <AuthContext.Provider
     value={{
