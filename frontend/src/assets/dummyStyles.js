@@ -1227,6 +1227,7 @@ export const sellerSidebarStyles = {
   logoutButton:
     "w-full flex items-center gap-4 py-3.5 px-4 rounded-xl border-none bg-transparent text-[0.9375rem] font-semibold text-[#dc2626] cursor-pointer transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-red-50",
 };
+
 export const logoStyles = {
   link: "font-bold text-primary flex items-center gap-3 no-underline whitespace-nowrap",
   iconWrapper: "bg-primary text-white p-2 rounded-[10px] flex items-center justify-center shadow-[0_4px_12px_rgba(13,110,89,0.2)]",
