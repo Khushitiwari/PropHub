@@ -31,7 +31,7 @@ const SellerDashboard = () => {
     const fetchData = async () => {
 
       try{
-       const { statsRes , propsRes , inqRes } = await Promise.all([
+       const [ statsRes , propsRes , inqRes ] = await Promise.all([
         axios.get(`${API_URL}/api/property/seller/dashboard`, {
           headers : {Authorization: `Bearer ${token}`},
 
@@ -249,7 +249,7 @@ const filteredProperties = Array.isArray(properties)
         <>
         <div className={s.propertiesGrid}>
 
-          { filteredProperties.slice[0,3].map((p) =>(
+          { filteredProperties.slice(0,3).map((p) =>(
             < PropertyCard key={p._id} property={p} renderActions={() => (
               <div className={s.propertyActions}>
                 <button onClick={(e) => {

@@ -9,7 +9,7 @@ import axios from 'axios';
 //Axios is a library used to communicate with servers.
 
 import API_URL  from '../config.js'
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 // Create a global authentication context.
 const AuthContext = createContext();
@@ -43,6 +43,9 @@ export const AuthProvider =  ( {children }) =>{
         }
 
 
+  setLoading(false);
+
+
     // Register a global Axios response interceptor to
     // automatically log out blocked users.
         const interceptor = axios.interceptors.response.use(
@@ -71,28 +74,56 @@ export const AuthProvider =  ( {children }) =>{
 
    // login 
    // Authenticate the user and persist their session.
-   const login = async (email , password ) =>{
-    try{
-     const res = await axios.post(`${API_URL}/api/auth/login` , {email , password});
-     const {token , user } = res.data;
-     setToken(token);
-     setUser(user);
+//    const login = async (email , password ) =>{
+//     try{
+//      const res = await axios.post(`${API_URL}/api/auth/login` , {email , password});
+//      const {token , user } = res.data;
+//      setToken(token);
+//      setUser(user);
 
-     localStorage.setItem("token" , token);
-     localStorage.setItem("user" , JSON.stringify(user));
+//      localStorage.setItem("token" , token);
+//      localStorage.setItem("user" , JSON.stringify(user));
 
-     return {success: true};
+//      return {success: true};
 
-    }
-    catch(error){
-        return {
-            success:false,
-            message: error.response?.data?.message || "Login Denied or Failed",
+//     }
+//     catch(error){
+//         return {
+//             success:false,
+//             message: error.response?.data?.message || "Login Denied or Failed",
 
-        };
+//         };
 
-    }
-   }
+//     }
+//    }
+
+       const login = async (email, password) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/api/auth/login`,
+      { email, password }
+    );
+
+    const { token, user } = res.data;
+
+    // console.log("LOGIN USER:", user);
+    // console.log("LOGIN isApproved:", user?.isApproved);
+
+    setToken(token);
+    setUser(user);
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || "Login Denied or Failed",
+    };
+  }
+};
 
    // register
    const register = async (userData) =>{

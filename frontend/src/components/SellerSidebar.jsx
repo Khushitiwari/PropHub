@@ -72,7 +72,7 @@ const SellerSidebar = ({ isOpen, onClose }) => {
     {
         name: "My Listings",
         icon: HiOutlineViewList,
-        path: "/mt-properties",
+        path: "/my-properties",
 
     },
     {name:"Leads", icon:  HiOutlineChartBar, path:"/inquiries"},

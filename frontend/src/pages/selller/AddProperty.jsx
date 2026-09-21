@@ -26,6 +26,7 @@ const AddProperty = () => {
     areaSize: "",
     furnishing: "unfurnished",
     status: "sale",
+
     amenities: [],
     securityDeposit: "",
     maintenance: "",
@@ -306,7 +307,7 @@ const AddProperty = () => {
                 <input type="checkbox" checked={formData.amenities.includes(amenity)} 
                 onChange={() => handleAmenityChange(amenity) } className={s.amenityCheckbox} /> 
 
-                <span clasName={`${s.amenityTextBase} ${formData.amenities.includes(amenity)
+                <span className={`${s.amenityTextBase} ${formData.amenities.includes(amenity)
                 ? s.amenityTextActive
                 : s.amenityTextInactive
                   
@@ -350,7 +351,7 @@ const AddProperty = () => {
                { imagePreviews.length > 0 && (
                  <div className={s.previewsGrid}>
                   {imagePreviews.map((src , i) => (
-                    <div className={s.previewsItem }>
+                    <div key={i}className={s.previewsItem }>
                       <img src={src} alt="preview" className="w-full h-full object-cover " /> 
                       <button type="button" onClick={() => removeImage(i) }
                       className={s.removeButton} style={{

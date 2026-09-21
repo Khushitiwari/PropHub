@@ -1,59 +1,68 @@
-import React from 'react'
-import { useAuth } from '../../context/AuthContext'
-import { Navigate, replace } from 'react-router-dom';
+import React from "react";
+import { useAuth } from "../../context/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({alloweRoles}) => {
+// Protected Route
+const ProtectedRoute = ({ allowedRoles }) => {
+  const { user, loading } = useAuth();
 
-    const { user, loading } = useAuth();
-    if( loading ){
-        return(
-            <div className='flex justify-center p-25'>
-                <div className="loader">
+  if (loading) {
+    return (
+      <div className="flex justify-center p-25">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
-                </div>
+  const isGuestAllowed = allowedRoles?.includes(undefined);
 
-            </div>
-        )
+  // Not logged in
+  if (!user && !isGuestAllowed) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Logged in but role not allowed
+  if (user && allowedRoles && !allowedRoles.includes(user.role)) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin-dashboard" replace />;
     }
 
-   const isGuestAllowed =  allowedRoles?.includes( undefined );
-   if( !user && ! isGuestAllowed ){ 
-    return <Navigate to="/login" replace />
+    if (user.role === "seller") {
+      return <Navigate to="/dashboard" replace />;
+    }
 
-   }
+    return <Navigate to="/" replace />;
+  }
 
-   if( user && allowedRoles && !alloweRoles.includes(user.role) ){
-     if( user.role === "admin" )
-        return <Naviagte to="/admin-dashboard" replace />
+  return <Outlet />;
+};
 
-     if( user.role === "seller") return <Navigate to='/dashboard' replace />
-     return <Navigate to='/' replace />
-   }
-  return  <Outlet />
-}
-
-// public route
+// Public Route
 const PublicRoute = () => {
-    const { user , loading } = userAuth();
+  const { user, loading } = useAuth();
 
-    if( loading ){
-        return (
-            <div className="flex justify-center p-24"> 
-             <div className="loader" >
+  if (loading) {
+    return (
+      <div className="flex justify-center p-24">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
-             </div>
-
-            </div>
-        )
+  if (user) {
+    if (user.role === "admin") {
+      return <Navigate to="/admin-dashboard" replace />;
     }
 
-    if( user ){
-        if( user.role === "admin" )
-            return <Navigate to="/admin-dashboard" replace />;
-
-        if( user.role === "seller") return <Navigate to="/dashboard" replace />;
-        return <Navigate to="/" />
+    if (user.role === "seller") {
+      return <Navigate to="/dashboard" replace />;
     }
-}
 
-export default  { ProtectedRoute , PublicRoute };
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
+
+export { ProtectedRoute , PublicRoute };
+//export default PublicRoute;
