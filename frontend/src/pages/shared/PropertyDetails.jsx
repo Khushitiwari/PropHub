@@ -142,7 +142,24 @@ const PropertyDetails = () => {
             image: property.images[0],
            } , { headers: {Authorization: `Bearer ${token}`}}
          )
-         navigate("/chat-message" , {state: { chat} });
+         navigate("/chat-messages" , {state: { chat} });
+         try {
+    await axios.post(
+        `${API_URL}/api/chat/send`,
+        {
+            chatId: chat._id,
+            text: `(Content: Interested in property "${property.title}")`,
+            image: property.images[0],
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    } catch (error) {
+    console.error("Failed to send initial message:", error);
+}
        }catch(error){
         console.error("Error starting chat:", error );
         alert("Failed to start chat");

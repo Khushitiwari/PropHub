@@ -50,7 +50,7 @@ const Navbar = () => {
       
       </Link>
       <Link 
-      to='chat-messages'
+      to='/chat-messages'
       className={s.navLink}
       onClick={() =>  setIsOpen(false)}
       >

@@ -30,6 +30,7 @@ import { useAuth } from "./context/AuthContext.jsx";
 
 import {Navigate} from 'react-router-dom';
 import MyInquiries from "./pages/buyer/MyInquiries.jsx";
+import ChatMessages from "./pages/shared/ChatMessages.jsx";
 
 const ScrollToTopOnRouteChange = () => {
   const { pathname } = useLocation();
@@ -70,7 +71,7 @@ const ScrollTopButton = () => {
   );
 };
 
-// smart layout wrapper  for seller and buyer
+// secure layout wrapper for seller and buyer
 
 const SellerLayoutWrapper = () => {
   const { user } = useAuth();
@@ -113,6 +114,7 @@ const App = () => {
         >
           <Route element={<SellerLayoutWrapper />}>
             <Route path="/inquiries" element={<MyInquiries /> }/>
+            <Route path="/chat-messages" element={<ChatMessages/>} />
             <Route path="/profile" element={<Profile />} />
           </Route>
 

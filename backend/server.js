@@ -74,7 +74,7 @@ io.on("connection" , (socket) =>{
     });
 
     socket.on("sendMessage" , (data) =>{
-        io.to(data.chatId).emit("recievedMessage" , data);
+        io.to(data.chatId).emit("recieveMessage" , data);
 
     });
 

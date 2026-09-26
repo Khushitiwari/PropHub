@@ -22,7 +22,7 @@ chatRouter.post("/start" , async(req,res)=>{
         }
 
         if( !buyerId || !finalSellerId ){
-          res.status(400).json({
+           return res.status(400).json({
             message:"Missing buyer or seller id"
           });
         }
@@ -34,7 +34,7 @@ chatRouter.post("/start" , async(req,res)=>{
         });
 
         if( !chat ){
-            chat =  await createImageBitmap({
+            chat =  await Chat.create({
                 property: propertyId,
                 buyer: buyerId,
                 seller: finalSellerId,
@@ -62,58 +62,72 @@ chatRouter.post("/start" , async(req,res)=>{
 } );
 
 // to send message
-chatRouter.post("/send" , async(req, res) =>{
-    try{
-        const { chatId , text , image} = req.body;
-        const userId = req.user.id;
+chatRouter.post("/send", async (req, res) => {
+    try {
+        const { chatId, text, image } = req.body;
+        const userId = req.user._id;
 
         const chat = await Chat.findById(chatId);
-        if( !chat ) return res.status(404).json({
-            message:"Chat not found"
-        });
-        // ensure sender is part of this chat
-        if( chat.buyer.toString() !== userId && chat.seller.toString() !== userId){
-            return res.status(403).json({
-                message: "Not authorzed to send message in this chat"
+
+        if (!chat) {
+            return res.status(404).json({
+                message: "Chat not found"
             });
         }
 
-        const newMsg = {
-            sender:userId,
+        // Ensure sender is part of this chat
+        if (
+            chat.buyer.toString() !== userId.toString() &&
+            chat.seller.toString() !== userId.toString()
+        ) {
+            return res.status(403).json({
+                message: "Not authorized to send message in this chat"
+            });
+        }
+
+        const newMessage = {
+            sender: userId,
             text,
             image,
             createdAt: new Date()
-        }
+        };
 
-        chat.message.push(newMessage);
+        chat.messages.push(newMessage);
+
         await chat.save();
 
-        const savedMsg = chat.message[chat.message.length -1];
-        res.json({chat , newMessage:savedMessage});
+        const savedMsg = chat.messages[chat.messages.length - 1];
 
-    }
-    catch(error){
+        return res.status(200).json({
+            chat,
+            newMessage: savedMsg
+        });
 
-        res.status(500).json({
+    } catch (error) {
+        console.error("SEND MESSAGE ERROR:", error);
+
+        return res.status(500).json({
             message: "Error sending message",
-            error:error.message
-        })
-
+            error: error.message
+        });
     }
-})
+});
 
 // to get chats for user 
 chatRouter.get("/user" , async (req, res) =>{
     try{
         const userId =  req.user._id;
         const chats = await Chat.find({
-            $or: [{buyer :userId} , {seller : userId}]
+            $or: [{buyer : userId} , {seller : userId}]
         })
 
         .populate("buyer" , " name email profilePic")
         .populate("seller", " name email profilePic")
         .populate("property" , "title price images")
         .sort({ updatedAt: -1});
+
+
+        res.json(chats);
 
     }
     catch(error){
@@ -131,7 +145,7 @@ chatRouter.get("/user" , async (req, res) =>{
 chatRouter.get("/:chatId" , async (req , res) => {
     try {
         const chat = await Chat.findById(req.params.chatId).populate(
-            "message.sender",
+            "messages.sender",
             "name profilePic"
         );
 
@@ -178,9 +192,8 @@ chatRouter.delete("/:chatId" , async (req,res) =>{
         res.json({ message:" chat deleted successfully!"});
 
 
-
-
     }
+
     catch(error){
 
         res.status(500).json({
