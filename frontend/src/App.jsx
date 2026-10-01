@@ -31,6 +31,8 @@ import { useAuth } from "./context/AuthContext.jsx";
 import {Navigate} from 'react-router-dom';
 import MyInquiries from "./pages/buyer/MyInquiries.jsx";
 import ChatMessages from "./pages/shared/ChatMessages.jsx";
+import Contact from "./pages/shared/Contact";
+import Wishlist from "./pages/buyer/Wishlist.jsx";
 
 const ScrollToTopOnRouteChange = () => {
   const { pathname } = useLocation();
@@ -115,6 +117,8 @@ const App = () => {
           <Route element={<SellerLayoutWrapper />}>
             <Route path="/inquiries" element={<MyInquiries /> }/>
             <Route path="/chat-messages" element={<ChatMessages/>} />
+            <Route path="/wishlist"  element={<Wishlist/> } />
+            <Route path="/contact" element={<Contact/>} />
             <Route path="/profile" element={<Profile />} />
           </Route>
 
