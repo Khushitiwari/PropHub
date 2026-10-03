@@ -3,7 +3,7 @@ import { wishlistStyles as s } from '../../assets/dummyStyles';
 import {useAuth } from '../../context/AuthContext';
 import Navbar  from '../../components/common/Navbar'
 import axios from 'axios';
- import API_URL from '../../config';
+import API_URL from '../../config';
 import { HiHeart, HiTrash } from 'react-icons/hi';
 
 import { Link } from 'react-router-dom';
@@ -47,7 +47,7 @@ const Wishlist = () => {
      }
 
      try{
-        await axios.delete(`4{API_URL}/api/wishlist/${propertyId}`, {
+        await axios.delete(`${API_URL}/api/wishlist/${propertyId}`, {
           headers : { Authorization : `Bearer ${token}`},
         });
 
