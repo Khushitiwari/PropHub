@@ -6,7 +6,7 @@
 |---|---|
 | **Live frontend** | [prop-hub-rho.vercel.app](https://prop-hub-rho.vercel.app) |
 | **API** | [prophub-lyjb.onrender.com](https://prophub-lyjb.onrender.com) |
-| **Repository** | [github.com/Khushitiwari/PropHub](https://github.com/Khushitiwari/PropHub) |
+
 
 ---
 
