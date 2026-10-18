@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { forgotPasswordStyles as s  } from '../../assets/dummyStyles'
 import Navbar from '../../components/common/Navbar'
 import { Link } from "react-router-dom"
+import API_URL from '../../config'
 
 const ForgotPasssword = () => {
     const [ email , setEmail ] = useState("");
@@ -11,7 +13,7 @@ const ForgotPasssword = () => {
 
     // to submit the email tp get the reset link
     const handleSubmit = async (e) =>{
-        e.preventDeafault();
+        e.preventDefault();
         setIsLoading(true);
         setError("");
         setSuccess("");
@@ -29,6 +31,8 @@ const ForgotPasssword = () => {
                 error.response?.data.message || " Could not send the reset link. Please try again " ,
             )
 
+        } finally {
+            setIsLoading(false);
         }
 
     }
@@ -52,7 +56,7 @@ const ForgotPasssword = () => {
                     <label className={s.label}>
                        Email Address
                     </label>
-                    <input type="email" vallue={email}
+                    <input type="email" value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@company.com" required
                     className={s.input}

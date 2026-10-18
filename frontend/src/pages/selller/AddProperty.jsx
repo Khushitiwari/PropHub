@@ -96,7 +96,6 @@ const AddProperty = () => {
 
     try {
       await axios.post(`${API_URL}/api/property`, data, {
-        "Content-Type": "multipart/form-data",
         headers: { Authorization: `Bearer ${token}` },
       });
 
