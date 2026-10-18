@@ -261,7 +261,7 @@ const AddProperty = () => {
                       Pincode
                      </label>
                      <input type="text" name="pincode"  value={formData.pincode} 
-                     onChange={handleInputChange} placeholder="e.g. Mumbai" className={s.input}
+                     onChange={handleInputChange} placeholder="e.g. 456743" className={s.input}
                      required
                      />
                   </div>
@@ -281,8 +281,6 @@ const AddProperty = () => {
             </div>
 
 
-
-            
 
 
 
