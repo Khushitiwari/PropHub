@@ -369,7 +369,3 @@ Vite embeds `VITE_*` variables at **build time**. Set them in the Vercel project
 - GitHub: [@Khushitiwari](https://github.com/Khushitiwari)
 
 ---
-
-## License
-
-This project is for portfolio and educational use. Add an explicit license file (e.g. MIT) if you open-source it for wider contribution.
