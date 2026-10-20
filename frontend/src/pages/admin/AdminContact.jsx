@@ -1,3 +1,5 @@
+// Contact form inbox.
+
 import React, { useEffect, useState } from 'react'
 import { adminContactsStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
@@ -9,7 +11,6 @@ const AdminContact = () => {
     const [contacts , setContacts ] = useState([]);
     const [loading , setLoading ] = useState(true);
     const  { token } = useAuth();
-
 
     // to fetch the contacts
 
@@ -47,7 +48,6 @@ const AdminContact = () => {
 
         </div>
       )
-
 
   return (
     <> 

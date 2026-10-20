@@ -1,3 +1,4 @@
+// All routes require admin role.
 
 import express from  'express';
 import { protect , authorize } from '../middlewares/auth.js';
@@ -15,14 +16,11 @@ adminRouter.delete("/users/:id" , deleteUser);
 adminRouter.get("/properties" , getAllProperties);
 adminRouter.delete("/properties/:id" , deleteProperty);
 
-
 adminRouter.get("/inquiries" , getAllInquiries);
 
 adminRouter.get("/stats" , getDashboardStats);
 
 adminRouter.get("/pending-sellers" , getPendingSeller);
 adminRouter.patch("/approve-seller/:id" , approveSeller);
-
-
 
 export default adminRouter;

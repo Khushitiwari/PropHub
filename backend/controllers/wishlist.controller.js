@@ -1,6 +1,8 @@
+// Buyer saved properties.
+
 import Wishlist from "../models/wishlist.model.js";
 
-// to add property to wishlist
+// to add property to wishlist. // POST /:propertyId — save listing for req.user.
 
 export const addWishlist = async (req , res) =>{
     try{
@@ -40,7 +42,7 @@ export const addWishlist = async (req , res) =>{
     }
 }
 
-// to get property that is in wishlist
+// to get property that is in wishlist. // GET / — populated wishlist items.
 
 export const getWishlist = async (req, res) => {
     try{
@@ -62,8 +64,9 @@ export const getWishlist = async (req, res) => {
     }
 }
 
-
 // to remove a property from wishlist
+// Remove from wishlist.
+
 export const removeProperty = async (req, res)=>{
     try{
         const propertyId = req.params.propertyId; // Use req.params when the value is part of the URL path.

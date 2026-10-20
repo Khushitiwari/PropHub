@@ -86,7 +86,6 @@ const PropertyCard = ({
          </div>
         </div>
 
-
        <div  className={s.content}>
         <div className="flex justify-between items-center">
           <span className={s.propertyType}>   {property.propertyType}   </span>

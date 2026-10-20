@@ -1,27 +1,15 @@
+// Upload image buffer from Multer to Cloudinary
 
 import cloudinary from "../config/cloudinary.js";
-import streamifier from 'streamifier';
+import streamifier from "streamifier";
 
-
-
-// baad me ye code samajh
-export const uploadToCloudinary = ( buffer , folder="general") =>{
-
-    return new Promise((resolve , reject) =>{
-        const stream = cloudinary.uploader.upload_stream(
-            {folder},
-            (error , result) =>{
-                if(result) resolve(result);
-                else reject(error);
-            }
-        );
-
-        streamifier.createReadStream(buffer).pipe(stream);
-
+export const uploadToCloudinary = (buffer, folder = "general") => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream({ folder }, (error, result) => {
+      if (result) resolve(result);
+      else reject(error);
     });
 
-
-
-
-}
-
+    streamifier.createReadStream(buffer).pipe(stream);
+  });
+};

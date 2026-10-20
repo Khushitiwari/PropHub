@@ -5,7 +5,6 @@ import { useAuth } from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
 
-
 const Navbar = () => {
 
   const [isOpen , setIsOpen ] = useState(false);
@@ -14,7 +13,6 @@ const Navbar = () => {
 
   // to toggle the menu for the mobile
   const toggleMenu = () =>  setIsOpen(!isOpen);
-
 
   // to navigate
   const navLinks = (
@@ -66,8 +64,6 @@ const Navbar = () => {
       </Link>
       
       </>
-
-
 
     ) }
 

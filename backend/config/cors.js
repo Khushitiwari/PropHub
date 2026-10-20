@@ -1,10 +1,11 @@
+// Which frontend URLs are allowed to call this API
+
 const DEFAULT_DEV_ORIGINS = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:5175",
 ];
 
-/** Comma-separated list in CORS_ORIGINS; FRONTEND_URL is always included when set. */
 export function getAllowedOrigins() {
   const fromEnv = (process.env.CORS_ORIGINS || "")
     .split(",")

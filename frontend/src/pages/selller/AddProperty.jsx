@@ -1,3 +1,5 @@
+// Create listing with image upload.
+
 import React, { useState } from "react";
 import api from "../../api/client.js";
 import { addPropertyStyles as s } from "../../assets/dummyStyles";
@@ -278,13 +280,7 @@ const AddProperty = () => {
               </div>
             </div>
 
-
-
-
-
-
           </div>
-
 
             <div className={s.section}>
               <div className={`${s.sectionHeader} ${s.sectionHeaderSmallMargin}`} >

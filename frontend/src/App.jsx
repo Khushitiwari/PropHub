@@ -1,3 +1,5 @@
+// All app routes (home, auth, dashboards)
+
 import { Routes, Route, useLocation, Outlet } from "react-router-dom";
 import LandingPage from "./pages/shared/LandingPage.jsx";
 import Properties from "./pages/shared/Properties.jsx";
@@ -34,6 +36,8 @@ import ChatMessages from "./pages/shared/ChatMessages.jsx";
 import Contact from "./pages/shared/Contact";
 import Wishlist from "./pages/buyer/Wishlist.jsx";
 
+// Scrolls window to top whenever the route pathname changes.
+
 const ScrollToTopOnRouteChange = () => {
   const { pathname } = useLocation();
 
@@ -44,7 +48,8 @@ const ScrollToTopOnRouteChange = () => {
   return null;
 };
 
-// floating scroll to top btn
+// Fixed button shown after scrolling down 300px.
+
 const ScrollTopButton = () => {
   const [visible, setVisible] = useState(false);
 
@@ -73,12 +78,14 @@ const ScrollTopButton = () => {
   );
 };
 
-// secure layout wrapper for seller and buyer
+// Uses SellerLayout chrome only for seller role; buyers get a plain Outlet.
 
 const SellerLayoutWrapper = () => {
   const { user } = useAuth();
   return user?.role === "seller" ? <SellerLayout /> : <Outlet />;
 };
+
+// Application shell and React Router route definitions.
 
 const App = () => {
   useEffect(() => {

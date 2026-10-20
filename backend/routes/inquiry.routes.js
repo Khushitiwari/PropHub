@@ -1,3 +1,5 @@
+// Buyer/seller inquiry endpoints.
+
 import express from "express";
 import { authorize , protect} from '../middlewares/auth.js';
 import { sendInquiry , getSellerInquiries , markAsRead } from '../controllers/inquiry.controller.js'; 
@@ -9,5 +11,4 @@ inquiryRouter.get("/seller" , protect , authorize("seller") , getSellerInquiries
 
 inquiryRouter.patch("/:id/read" , protect , markAsRead );
 export default inquiryRouter;
-
 

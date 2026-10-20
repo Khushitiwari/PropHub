@@ -1,3 +1,5 @@
+// Authenticated buyer wishlist.
+
 import express from 'express';
 import { protect } from '../middlewares/auth.js'
 import { addWishlist , getWishlist , removeProperty } from '../controllers/wishlist.controller.js';

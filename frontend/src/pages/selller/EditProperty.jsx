@@ -1,3 +1,5 @@
+// Update existing listing.
+
 import React, {useState , useEffect} from 'react'
 import api from '../../api/client.js'
 import { editPropertyStyles as s } from '../../assets/dummyStyles'
@@ -84,8 +86,6 @@ const EditProperty = () => {
      setFormData({...formData, [e.target.name]: e.target.value});
   }
 
-
-
   const handleAmenityChange = (amenity) => {
     setFormData((prev) => {
       const current = prev.amenities || [];
@@ -111,11 +111,9 @@ const EditProperty = () => {
     setNewImagePreviews((prev) => [...prev , ...previews])
   }
 
-
   const removeExistingImage = (url) => {
     setExistingImages(existingImages.filter((img) => img !== url  ));
   }
-
 
   const removeNewImage = (index) =>{
     setNewImages(newImages.filter((_,i) => i !== index));
@@ -136,14 +134,12 @@ const EditProperty = () => {
         }else if(key === "securityDesposit" || key=== "maintenance" ){
             data.append(key , formData[key] || 0);
 
-
         }else{
             data.append(key , formData[key]);
         }
     });
     data.append("existingImages" , JSON.stringify(existingImages));
     newImages.forEach((img) => data.append("images" , img));
-
 
     try{
         await api.put(`/property/${id}` , data , {
@@ -472,13 +468,11 @@ const EditProperty = () => {
 
             </button>
 
-
          </div>
         
         </form>
 
     </div>
-
 
     </div>
   )

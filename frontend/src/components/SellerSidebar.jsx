@@ -5,7 +5,6 @@ import { HiOutlineViewGrid , HiOutlineViewList , HiOutlineChartBar, HiOutlineUse
 import { NavLink } from 'react-router';
 import { useAuth } from "../context/AuthContext";
 
-
 // const SellerSidebar = ({ isOpen , onClose}) => {
 //  const { logout , user } = useAuth();
 
@@ -21,8 +20,6 @@ import { useAuth } from "../context/AuthContext";
 //     {name:"Message", icon: HiOutlineViewGrid, path:"/chat-messages"},
 //     {name:"Profile", icon:HiOutlineUser, path:"/profile"},
 //     {name:"Support", icon:HiOutlineSupport, path:"/contact" },
-
-
 
 //  ]
 
@@ -63,7 +60,6 @@ import { useAuth } from "../context/AuthContext";
 //   )
 // }
 
-
 const SellerSidebar = ({ isOpen, onClose }) => {
   const { logout } = useAuth();
 
@@ -80,10 +76,7 @@ const SellerSidebar = ({ isOpen, onClose }) => {
     {name:"Profile", icon:HiOutlineUser, path:"/profile"},
     {name:"Support", icon:HiOutlineSupport, path:"/contact" },
 
-
-
  ];
-
 
   return (
     <>

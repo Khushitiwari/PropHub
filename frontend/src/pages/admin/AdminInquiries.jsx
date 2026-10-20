@@ -1,3 +1,5 @@
+// View all inquiries.
+
 import React, { useEffect, useState } from 'react'
 import { adminInquiriesStyles as s  } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
@@ -29,12 +31,10 @@ const AdminInquiries = () => {
 
         setLoading(false);
 
-
     }catch(error){
         console.error("Failed to load inquiries:" , error);
         setError(error.response?.data?.message || error.message);
         setLoading(false);
-
 
      }
     };
@@ -65,7 +65,6 @@ const AdminInquiries = () => {
 
         </button>
       </div>)
-
 
   return (
    <>

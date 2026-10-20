@@ -1,8 +1,10 @@
+// Block pages unless user is logged in with the right role
+
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
 
-// Protected Route
+// Private pages (buyer, seller, admin)
 const ProtectedRoute = ({ allowedRoles }) => {
   const { user, loading } = useAuth();
 
@@ -16,12 +18,10 @@ const ProtectedRoute = ({ allowedRoles }) => {
 
   const isGuestAllowed = allowedRoles?.includes(undefined);
 
-  // Not logged in
   if (!user && !isGuestAllowed) {
     return <Navigate to="/login" replace />;
   }
 
-  // Logged in but role not allowed
   if (user && allowedRoles && !allowedRoles.includes(user.role)) {
     if (user.role === "admin") {
       return <Navigate to="/admin-dashboard" replace />;
@@ -37,7 +37,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   return <Outlet />;
 };
 
-// Public Route
+// Login/register — redirect if already logged in
 const PublicRoute = () => {
   const { user, loading } = useAuth();
 
@@ -64,5 +64,4 @@ const PublicRoute = () => {
   return <Outlet />;
 };
 
-export { ProtectedRoute , PublicRoute };
-//export default PublicRoute;
+export { ProtectedRoute, PublicRoute };

@@ -1,3 +1,5 @@
+// Request password reset email via api.
+
 import React, { useState } from 'react'
 import api from '../../api/client.js'
 import { getApiErrorMessage } from '../../api/errors.js'
@@ -36,8 +38,6 @@ const ForgotPasssword = () => {
         }
 
     }
-
-
 
   return (
     <div className={s.container}>
@@ -79,7 +79,6 @@ const ForgotPasssword = () => {
             </div>
 
         </div>
-
 
     </div>
   )

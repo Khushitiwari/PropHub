@@ -1,3 +1,5 @@
+// Marketing home, search, featured listings, wishlist toggles.
+
 import React , { useEffect, useState } from 'react';
 import api from "../../api/client.js";
 import { landingPageStyles as s } from '../../assets/dummyStyles';
@@ -27,7 +29,6 @@ const LandingPage = () => {
     commercial : 0,
   });
 
-
   const [wishlistedIds , setWishlistedIds ] = useState([]);
   useEffect(() =>{
     fetchProperties();
@@ -37,7 +38,6 @@ const LandingPage = () => {
 
     }
   }, [user]);
-
 
   const fetchWishlist = async () =>{
     try{
@@ -54,7 +54,6 @@ const LandingPage = () => {
       console.error("Failed to fetch wishlist " , error)
     }
   }
-
 
   // to remove a wishlist
   const handleToggleWishlist = async (propertyId ) => {
@@ -170,7 +169,6 @@ const LandingPage = () => {
     },
   ];
 
-
   return (
     <div className={s.bgMain}
     >
@@ -183,13 +181,10 @@ const LandingPage = () => {
             <h1 className={s.heroTitle}>
               Find Your <span className={s.textGradient}>Perfect </span> Next Chapter
 
-
             </h1>
             <p className={s.heroSubtitle}>
               Experience the most advanced real estate search platform. Discover verified listings , connect with
               top agents, and find  a place you'll love. 
-
-
 
             </p>
 
@@ -341,7 +336,6 @@ const LandingPage = () => {
               <li key={idx} className={s.listItem}>
                  <HiLightningBolt className="text-primary" />{item}
 
-
               </li>
               ))}
 
@@ -351,7 +345,6 @@ const LandingPage = () => {
               Learn more about our process &rarr;
 
             </a>
-
 
             </div>
 
@@ -371,7 +364,6 @@ const LandingPage = () => {
                 We've simpliefied the journey of finding your dream Home into three clear stress-free  steps
 
               </p>
-
 
               <div className={s.processGrid}>
              
@@ -521,7 +513,6 @@ const LandingPage = () => {
               </ul>
             </div>
 
-
              <div>
               <h4 className={s.footerHeading}>Support</h4>
               <ul className={s.footerLinks}>
@@ -593,7 +584,6 @@ const LandingPage = () => {
           </div>
 
         </footer>
-
 
     </div>
   )

@@ -1,3 +1,4 @@
+// User accounts: roles, verification, seller approval, reset tokens.
 
 import mongoose , { Schema } from "mongoose";
 
@@ -55,7 +56,6 @@ const userSchema = new Schema({ // user table ho gya usme ye ye columns hoga
     timestamps: true
 }
 );
-
 
 const User = mongoose.model("User" , userSchema);
  export default User;

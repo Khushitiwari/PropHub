@@ -1,3 +1,5 @@
+// Platform statistics overview.
+
 import React , {useEffect, useState} from 'react'
 import { adminDashboardStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
@@ -12,11 +14,9 @@ const AdminDashboard = () => {
         activeListings : 0,
         soldProperties: 0,
 
-
    });
    const [loading , setLoading ] = useState(true);
    const { token  } = useAuth();
-
 
    // to fetch dashbaord data
    useEffect(() => {
@@ -140,7 +140,6 @@ const AdminDashboard = () => {
           </h3>
           <div className={s.servicesContainer}>
 
-
             {["Database", "Media Storage", "Auth Service", "API Gateway"].map(
               (service, i) => (
                 <div key={i} className={s.serviceItem}>
@@ -195,7 +194,6 @@ const AdminDashboard = () => {
      </div>
 
      </>
-
 
     
   )

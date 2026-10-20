@@ -1,3 +1,5 @@
+// Email verification code entry.
+
 import { useState } from "react";
 import api from "../../api/client.js";
 import { verifyEmailStyles as s  } from "../../assets/dummyStyles"
@@ -17,7 +19,6 @@ const VerifyEmail = () => {
    // to get email passed from register page 
    const emailFromState = location.state?.email || "";
    const [email , setEmail ] = useState( emailFromState );
-
 
    // to submit the code
    const handleSubmit = async (e) => {
@@ -47,7 +48,6 @@ const VerifyEmail = () => {
       }
 
    }
-
 
   return (
     <div className={s.pageContainer}> 

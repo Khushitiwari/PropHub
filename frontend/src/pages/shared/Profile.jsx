@@ -1,3 +1,5 @@
+// Edit profile and avatar via multipart api.
+
 import React , { useState } from 'react'
 import api from '../../api/client.js'
 import { profileStyles as s } from '../../assets/dummyStyles'
@@ -9,7 +11,6 @@ const Profile = () => {
 
   // Get the current user, function to update user, and authentication token
   const { user, setUser, token } = useAuth();
-
 
   // State to control whether the profile is in editing mode
   const [isEditing, setIsEditing] = useState(false);
@@ -54,7 +55,6 @@ const Profile = () => {
         setImageFile(file);
         setImagePreview(URL.createObjectURL(file));
         setRemoveProfilePic(false);
-
 
       }
 
@@ -145,8 +145,6 @@ const Profile = () => {
                                 </span>
                             )}
 
-
-
                         </div>
 
                         { isEditing && (
@@ -233,13 +231,11 @@ const Profile = () => {
                                 setImageFile(null);
                                 setRemoveProfilePic(false);
 
-
                             }} className={s.cancelButton}>
                                 <HiX size={20} /> Cancel
 
                             </button>
                         </div>
-
 
                     </form>
                  ) : (
@@ -260,8 +256,6 @@ const Profile = () => {
                         </div>
                         </div>
 
-
-
                         <div className={s.infoItem }>
                             <div className={s.infoIcon}>
                             <HiOutlinePhone size={24} />
@@ -277,8 +271,6 @@ const Profile = () => {
                             </div>
                         </div>
                         </div>
-
-
 
                          <div className={s.infoItem }>
                             <div className={s.infoIcon}>
@@ -304,7 +296,6 @@ const Profile = () => {
                             </button>
 
                         </div>
-
 
                     </div>
                  )}

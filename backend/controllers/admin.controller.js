@@ -1,8 +1,12 @@
+// Admin-only platform moderation and analytics.
+
 import Property from "../models/property.model.js";
 import User from "../models/user.model.js";
 import Inquiry from "../models/inquiry.model.js";
 
 // view all users
+// List all accounts.
+
 export const getAllUsers = async (req, res) => {
   try {
     // selecting all users by removing password field
@@ -22,6 +26,8 @@ export const getAllUsers = async (req, res) => {
 };
 
 // Block a particular user
+// Toggle isBlocked.
+
 export const blockUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -42,6 +48,8 @@ export const blockUser = async (req, res) => {
 };
 
 // to delete a particular user
+// Remove user record.
+
 export const deleteUser = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -58,6 +66,8 @@ export const deleteUser = async (req, res) => {
 };
 
 // view all properties
+// All listings for moderation.
+
 export const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.find().populate("seller", "name email");
@@ -75,6 +85,8 @@ export const getAllProperties = async (req, res) => {
 };
 
 // to delete a particular property
+// Admin delete any listing.
+
 export const deleteProperty = async (req, res) => {
   try {
     await Property.findByIdAndDelete(req.params.id);
@@ -92,6 +104,8 @@ export const deleteProperty = async (req, res) => {
 };
 
 // to view all inquiries
+// Cross-platform inquiry feed.
+
 export const getAllInquiries = async (req, res) => {
   try {
     const inquiries = await Inquiry.find()
@@ -122,8 +136,9 @@ export const getAllInquiries = async (req, res) => {
   }
 };
 
-
 // Dashboard analytics
+// Totals for admin dashboard cards.
+
 export const getDashboardStats = async (req, res) =>{
     try{
      const totalUsers = await User.countDocuments();
@@ -157,8 +172,7 @@ export const getDashboardStats = async (req, res) =>{
     }
 }
 
-
-// to get pending seller account
+// to get pending seller account. // GET /pending-sellers — sellers awaiting approval.
 
 export const getPendingSeller = async (req, res) =>{
     try{
@@ -185,10 +199,9 @@ export const getPendingSeller = async (req, res) =>{
 
     }
 
-
 }
 
-// to approve the pending seller
+// to approve the pending seller. // PATCH /approve-seller/:id — set isApproved true.
 
 export const approveSeller = async (req,  res) =>{
     try{
@@ -210,7 +223,6 @@ export const approveSeller = async (req,  res) =>{
             message:"Seller approved successfully",
             seller
         });
-
 
     }
     catch(error){

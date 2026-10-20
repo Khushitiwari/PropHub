@@ -1,3 +1,5 @@
+// Chat UI; REST + ChatContext socket.
+
 import React, { useEffect, useRef, useState } from "react";
 import api from "../../api/client.js";
 import { chatMessagesStyles as s } from "../../assets/dummyStyles";

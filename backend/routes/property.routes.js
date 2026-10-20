@@ -1,3 +1,5 @@
+// Public and seller property endpoints.
+
 import express from 'express';
 
 import { getAllProperties,  addProperty, updateProperty, deleteProperty, updatedPropertyStatus, getPropertyCounts ,getPropertiesDetails, getSellerDashboard , getMyProperties } from '../controllers/property.controller.js';
@@ -19,8 +21,6 @@ propertyRouter.get("/counts" , getPropertyCounts);
 
 propertyRouter.get("/seller/dashboard" , protect , authorize("seller") , getSellerDashboard);
 
-
 propertyRouter.get("/:id" , getPropertiesDetails);
-
 
 export default propertyRouter;

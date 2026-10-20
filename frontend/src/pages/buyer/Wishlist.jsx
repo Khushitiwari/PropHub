@@ -1,3 +1,5 @@
+// Saved properties list.
+
 import React, {useEffect, useState} from 'react'
 import { wishlistStyles as s } from '../../assets/dummyStyles';
 import api from "../../api/client.js";
@@ -15,7 +17,6 @@ const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading , setLoading] = useState(true);
   const [error , setError ] =  useState(null);
-
 
   useEffect(() => {
     fetchWishlist();
@@ -58,7 +59,6 @@ const Wishlist = () => {
      }
   }
 
-
   if(loading)
     return(
     <div className={s.loaderFullPage} >
@@ -69,7 +69,6 @@ const Wishlist = () => {
       </div>
 
     )
-
 
   return (
     <div className={s.pageContainer} >

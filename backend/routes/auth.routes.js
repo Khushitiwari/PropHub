@@ -1,8 +1,8 @@
+// Maps /api/auth to auth.controller handlers.
 
 import express from  'express';
 import { register , login , getMe, resetPassword ,   forgotPassword  , verifyEmail}  from '../controllers/auth.controller.js';
 import { protect } from '../middlewares/auth.js'
-
 
 const authRouter = express.Router();
 

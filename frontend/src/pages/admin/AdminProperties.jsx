@@ -1,3 +1,5 @@
+// Moderate all listings.
+
 import React, { useEffect, useState } from 'react'
 import { adminPropertiesStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext';
@@ -23,7 +25,6 @@ const AdminProperties = () => {
               setProperties(props);
               setLoading(false);
 
-
             }catch(error){
                 console.log("Failed to load propeties:",error );
                 setLoading(false);
@@ -40,7 +41,6 @@ const AdminProperties = () => {
             "Are you sure you want to delete this property? This action is permanent "
         )) return;
 
-
         try{
             await api.delete(`/admin/properties/${id}`,{
                 headers: { Authorization: `Bearer ${token}`},
@@ -48,7 +48,6 @@ const AdminProperties = () => {
             } );
 
             setProperties(properties.filter((p) => p.id !== id ));
-
 
         }catch(error){
             alert("Failed to delete property");
@@ -60,7 +59,6 @@ const AdminProperties = () => {
       return(
     <div className={s.loaderFullPage}>
         <div className={s.loader}>
-
 
         </div>
 
@@ -116,7 +114,6 @@ const AdminProperties = () => {
         ) )}
       </div> 
     ) }
-
 
    </div>
    </>

@@ -1,3 +1,5 @@
+// Buyer message on a property.
+
 import mongoose , { Schema } from "mongoose";
 
 const inquirySchema = new Schema({

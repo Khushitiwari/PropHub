@@ -1,3 +1,5 @@
+// Registration with role selection (buyer/seller).
+
 import React, { useState } from 'react'
 import { registerStyles as s } from '../../assets/dummyStyles';
 import { useAuth } from '../../context/AuthContext';

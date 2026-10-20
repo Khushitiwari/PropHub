@@ -1,8 +1,11 @@
+// Public contact form and admin inbox.
+
 import Contact from '../models/contact.model.js';
 
 import sendEmail from '../utils/sendEmail.js';
 
-//to create a contact 
+// Submit contact message; notifies admin email.
+
 export const createContact = async (req, res)=>{
     try{
      const { name , email , phone , role , message } = req.body;
@@ -26,7 +29,6 @@ export const createContact = async (req, res)=>{
                 </div>
                 </div>
             </div>`;
-
 
             try{
                 sendEmail({
@@ -59,10 +61,10 @@ export const createContact = async (req, res)=>{
 
     }
 
-
   }
 
-    // to get all contacts for admin
+// Admin inbox of all contact submissions.
+
     export const getAllContacts = async (req, res) => {
         try{
 
@@ -78,7 +80,6 @@ export const createContact = async (req, res)=>{
             success:false,
             message:"Failed to fetch contacts "
         });
-
 
         }
     }

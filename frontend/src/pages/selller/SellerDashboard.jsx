@@ -1,3 +1,5 @@
+// Seller stats and quick property actions.
+
 import React,{ useEffect, useState } from 'react'
 import { sellerDashboardStyles as s } from '../../assets/dummyStyles'
 import {useAuth } from '../../context/AuthContext.jsx';
@@ -75,7 +77,6 @@ const SellerDashboard = () => {
       });
 
       setProperties(properties.filter((p) => p._id !== id ));
-
 
     }catch(error){
       alert("Failed to delete property.")
@@ -178,12 +179,10 @@ const filteredProperties = Array.isArray(properties)
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
   : [];
 
-
   return (
     <>
      <header className={s.header}>
       <div className={s.headerLeft}>
-
 
         <h1 className={s.headerTitle}> Seller Dashboard </h1>
         <p className={s.headerSubtitle}>
@@ -199,7 +198,6 @@ const filteredProperties = Array.isArray(properties)
             <HiPlus size={20} /> Add New 
           
           </Link>
-
 
         </div>
      </header>
@@ -237,7 +235,6 @@ const filteredProperties = Array.isArray(properties)
         </div>
 
       </div>
-
 
       {filteredProperties.length === 0 ? (
         <div className={s.emptyListings}>
@@ -328,7 +325,6 @@ const filteredProperties = Array.isArray(properties)
               </div>
               <span className={s.inquiryStatus(inq.status)}>
                 {inq.status === "read" ? "Read" : "New"}
-
 
               </span>
             </div>

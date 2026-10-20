@@ -1,3 +1,5 @@
+// Block/delete users.
+
 import React, { useEffect, useState, useEffect as useEffectHook  , useRef, useMemo} from "react";
 import api from "../../api/client.js";
 import { adminUsersStyles as s } from "../../assets/dummyStyles";
@@ -193,7 +195,6 @@ const AdminUsers = () => {
                         <div className={s.userAvatar}>
                           { user.name.charAt(0).toUpperCase() }
                         </div>
-
 
                         <div>
                           <div className={s.userInfoName}> {user.name}</div>

@@ -1,3 +1,4 @@
+// Property listings linked to seller User.
 
 import mongoose , { Schema } from "mongoose";
 

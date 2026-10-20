@@ -1,3 +1,5 @@
+// Set new password from email token.
+
 import React, { useState } from 'react'
 import { resetPasswordStyles as s  } from '../../assets/dummyStyles'
 import Navbar from '../../components/common/Navbar';
@@ -5,8 +7,6 @@ import api from "../../api/client.js";
 import { useNavigate, useParams , Link } from 'react-router-dom';
 
 import {HiEyeOff  , HiEye } from 'react-icons/hi'
-
-
 
 const ResetPassword = () => {
 
@@ -43,7 +43,6 @@ const ResetPassword = () => {
             };
             setTimeout(() =>  navigate("/login") , 2000 );
 
-
         }catch(err){
 
             setError( err.response?.data?.message || "Password reset failed. Token may be invalid or expired ")
@@ -52,9 +51,6 @@ const ResetPassword = () => {
             setIsLoading(false);
         }
     }
-
-
-
 
   return (
     <div className={s.container}>
@@ -105,7 +101,6 @@ const ResetPassword = () => {
                   {showPassword ? <HiEyeOff size={20} /> : <HiEye size={20} />}
                 </button>
 
-
                 </div>
               </div>
 
@@ -141,7 +136,6 @@ const ResetPassword = () => {
                   {showPassword ? <HiEyeOff size={20} /> : <HiEye size={20} />}
                 </button>
 
-
                 </div>
               </div>
 
@@ -160,8 +154,6 @@ const ResetPassword = () => {
             </div>
 
         </div>
-
-
 
     </div>
   )

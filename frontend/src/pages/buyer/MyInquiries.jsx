@@ -1,3 +1,5 @@
+// Buyer inquiry history and chat start.
+
 import React, { useEffect, useState } from 'react'
 import { myInquiriesStyles as s } from '../../assets/dummyStyles'
 import { useNavigate  , Link} from 'react-router-dom';
@@ -37,7 +39,6 @@ const MyInquiries = () => {
    fetchInquiries();
 
  } , [user ,token]);
-
 
  // to mark as read for the inquiry for seller
  const markAsRead = async (id) => {
@@ -259,7 +260,6 @@ const MyInquiries = () => {
 
         </div>
       )}
-
 
       </div>
 

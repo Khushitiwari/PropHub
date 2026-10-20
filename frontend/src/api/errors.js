@@ -1,8 +1,5 @@
-/**
- * Normalizes axios/API errors into a user-facing message.
- * @param {unknown} error
- * @param {string} [fallback]
- */
+// Turn axios errors into a short message for the UI
+
 export function getApiErrorMessage(error, fallback = "Something went wrong") {
   if (error && typeof error === "object" && "response" in error) {
     const data = error.response?.data;

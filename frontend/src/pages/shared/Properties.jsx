@@ -1,3 +1,5 @@
+// Filterable property catalog with wishlist.
+
 import React , { useState  , useEffect , useRef } from 'react'
 import api from '../../api/client.js'
 import { propertiesStyles as s } from '../../assets/dummyStyles'
@@ -6,7 +8,6 @@ import { HiAdjustments, HiFilter , HiSearch, HiViewGrid, HiViewList, HiX } from 
 import Navbar from '../../components/common/Navbar.jsx'
 import { useLocation , useNavigate } from 'react-router-dom'
 import PropertyCard from '../../components/common/PropertyCard.jsx'
-
 
   const Properties = () => {
 
@@ -19,7 +20,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
   const [loading , setLoading ] = useState(null);
   const [ error , setError ]= useState(null);
   const [viewMode , setViewMode ] = useState("grid");
-
 
     const [filters, setFilters] = useState({
     city: "",
@@ -50,7 +50,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
     const city = queryParams.get("city")  || "";
     const type = queryParams.get("type") || "";
     const bhk = queryParams.get("bhk") || "";
-
 
     const intialFilters = {
       ...filters,
@@ -103,7 +102,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
       }
     }catch(error){
       console.error("Failed to toggle wishlist:" , error);
-
 
     }
   }
@@ -192,7 +190,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
     fetchProperties(filters);
   };
 
-
   const resetFilters = () => {
     if (fetchTimer.current) clearTimeout(fetchTimer.current);
     const reset = {
@@ -210,8 +207,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
   };
 
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-
-
 
   return (
     <div className={s.pageContainer}>
@@ -340,7 +335,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
 
                   </div>
 
-
               </div>
 
            </div>
@@ -354,7 +348,6 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
                   Showing{" "}
                   <strong className={s.resultCountStrong}>
                     { loading ? "..." : properties.length }
-
 
                   </strong>{ " "}
                   properties

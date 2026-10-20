@@ -1,3 +1,5 @@
+// Public contact form.
+
 import React, { useState } from "react";
 import api from "../../api/client.js";
 import { contactStyles as s } from "../../assets/dummyStyles";
@@ -88,7 +90,6 @@ const Contact = () => {
                  
               </p>
 
-
             </div>
           </div>
 
@@ -102,7 +103,6 @@ const Contact = () => {
                  <button onClick={() => setSuccess(false) } 
                   className={s.successButton} >
                     Send Another Message
-
 
                  </button>
               </div>
@@ -149,7 +149,6 @@ const Contact = () => {
 
                    </div>
 
-
                      <div className={s.inputGroup}>
                      <label className={s.label}>
                       <HiOutlineAnnotation size={16} className="mr-1" />  Message
@@ -170,7 +169,6 @@ const Contact = () => {
                     className={s.submitButton} >
 
                       {loading ? "Sending...": "Send Message" }
-
 
                     </button>
 

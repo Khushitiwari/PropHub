@@ -1,3 +1,5 @@
+// Seller listing management.
+
 import React  ,{ useState , useEffect } from 'react'
 import api from '../../api/client.js'
 import { myPropertiesStyles as s } from '../../assets/dummyStyles'
@@ -27,7 +29,6 @@ const MyProperties = () => {
 
     }
   }
-
 
   useEffect(() => {
     fetchMyProperties();
@@ -76,19 +77,16 @@ const MyProperties = () => {
       <div className={s.loaderFullPage}>
         <div className={s.loader}>
 
-
         </div>
 
       </div>
     );
-
 
    const getAvailableStatus = (p) => {
     return "sale";
    }
 
   
-
 
   return (
     <div className={s.fadeIn}>
@@ -181,7 +179,6 @@ const MyProperties = () => {
            ) }
 
         </div>
-
 
       </div>
     </div>

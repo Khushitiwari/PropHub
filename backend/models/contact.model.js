@@ -1,3 +1,5 @@
+// Contact form submissions.
+
 import mongoose , { Schema } from "mongoose";
 
 const contactSchema = new Schema({
@@ -12,7 +14,6 @@ const contactSchema = new Schema({
     },
     phone:{
         type:String,
-
 
     },
     role:{

@@ -1,3 +1,5 @@
+// Stores logged-in user, token, and auth actions for the whole app.
+
 import React, {
   createContext,
   useContext,
@@ -18,6 +20,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Remove token and user from storage, go to login page
   const logout = async () => {
     setToken(null);
     setUser(null);
@@ -28,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  // Load user from storage on refresh; if admin blocks user, api client calls logout
   useEffect(() => {
     if (token) {
       const storedUser =
@@ -42,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     return () => setAccountBlockedHandler(null);
   }, [token]);
 
+  // Call backend login and save token + user in localStorage
   const login = async (email, password) => {
     try {
       const res = await api.post("/auth/login", { email, password });
@@ -62,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Create account (user still needs to verify email before login)
   const register = async (userData) => {
     try {
       const res = await api.post("/auth/register", userData);
@@ -77,6 +83,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Fetch latest user from server (e.g. after admin approves seller)
   const refreshUser = async () => {
     if (!token) return;
 
@@ -120,4 +127,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// Hook to read auth state in any component
 export const useAuth = () => useContext(AuthContext);

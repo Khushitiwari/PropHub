@@ -1,3 +1,5 @@
+// Conversation with embedded messages array.
+
 import mongoose , { Schema} from 'mongoose';
 
 const messageSchema = new  Schema({
@@ -20,7 +22,6 @@ const messageSchema = new  Schema({
         default: Date.now()
     }
 });
-
 
 // chat schema
 

@@ -1,3 +1,5 @@
+// Approve pending sellers.
+
 import React, { useEffect , useState } from 'react'
 import { sellerRequestsStyles as s} from '../../assets/dummyStyles';
 import api from "../../api/client.js";
@@ -8,7 +10,6 @@ const SellerRequests = () => {
     const [ requests , setRequests ] = useState([]);
     const [loading , setLoading ] = useState(true);
     const { token } = useAuth();
-
 
     // to fetch the request( made by seller)
     useEffect(() => {
@@ -64,9 +65,6 @@ const SellerRequests = () => {
 
        </div>
          )
-
-
-
 
   return (
     <div className={s.container}>
@@ -140,7 +138,6 @@ const SellerRequests = () => {
             </div>
 
         </div>
-
 
     </div>
   )

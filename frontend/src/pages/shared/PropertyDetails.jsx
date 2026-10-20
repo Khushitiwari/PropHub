@@ -1,3 +1,4 @@
+// Listing detail, inquiry, chat start, wishlist.
 
 import React , { useEffect, useState } from 'react'
 import api from '../../api/client.js'
@@ -29,7 +30,6 @@ const PropertyDetails = () => {
     error: null,
   });
   const [isInWishlist, setIsInWishlist] = useState(false);
-
 
   useEffect(() =>{
     const fetchDetails = async () =>{
@@ -103,7 +103,6 @@ const PropertyDetails = () => {
       setInquiryStatus({loading : false , success: true  , error : null  });
       setInquiry({...inquiry  , message: ""});
 
-
     }catch(error){
       setInquiryStatus({
         loading: false,
@@ -151,7 +150,6 @@ const PropertyDetails = () => {
         console.error("Error starting chat:", error );
         alert("Failed to start chat");
 
-
        } 
   }
 
@@ -170,7 +168,6 @@ const PropertyDetails = () => {
      { error || "Property not found"}
     </div>
   );
-
 
   const formattedPrice = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -422,7 +419,6 @@ const PropertyDetails = () => {
                 )}
 
             </div>
-
 
             { property.status?.toLowerCase() === "rent" && (
              

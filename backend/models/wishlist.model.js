@@ -1,3 +1,5 @@
+// Join table: user saved property.
+
 import mongoose , {Schema} from "mongoose";
 
 const wishlistSchema = new Schema({

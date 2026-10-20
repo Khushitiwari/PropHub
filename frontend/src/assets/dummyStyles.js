@@ -254,7 +254,6 @@ export const wishlistStyles = {
   removeButton: "btn w-full p-3 rounded-xl bg-[#fff5f5] text-[#ef4444] border border-[#fee2e2] flex items-center justify-center gap-2 font-bold",
 };
 
-
 export const addPropertyStyles = {
   // Container
   outerContainer: "fade-in px-4 py-8 md:py-12 w-full mx-auto dashboard-content",
@@ -576,7 +575,6 @@ export const contactStyles = {
   errorMessage: "text-red-600 text-[0.875rem] p-3 bg-red-50 rounded-lg",
   submitButton: "btn btn-primary w-full p-4 rounded-xl font-bold text-base mt-4",
 };
-
 
 export const profileStyles = {
   containerWrapper: (role) => role !== 'seller' ? 'bg-bg-alt min-h-screen pt-32 max-lg:pt-28' : 'bg-transparent min-h-auto',
@@ -1021,7 +1019,6 @@ export const loginStyles = {
   footerText: "text-center mt-8 text-text-muted",
   registerLink: "text-primary font-semibold hover:underline",
 };
-
 
 export const resetPasswordStyles = {
   container: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",

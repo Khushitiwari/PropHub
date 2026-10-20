@@ -1,3 +1,5 @@
+// Chat CRUD; inline handlers, protect on router.
+
 import express from "express"
 
 import Chat from '../models/chat.model.js';
@@ -7,7 +9,8 @@ const chatRouter = express.Router();
 
 chatRouter.use(protect);
 
-// to create a chat
+// Find or create buyer–seller thread for a property.
+
 chatRouter.post("/start" , async(req,res)=>{
     try{
         const { propertyId , sellerId , buyerId:providedBuyerId } = req.body;
@@ -48,8 +51,6 @@ chatRouter.post("/start" , async(req,res)=>{
         .populate("property" , "title price images");
         res.json(chat);
 
-
-
     }
     catch(error){
 
@@ -61,7 +62,8 @@ chatRouter.post("/start" , async(req,res)=>{
     }
 } );
 
-// to send message
+// Persist message on Chat document.
+
 chatRouter.post("/send", async (req, res) => {
     try {
         const { chatId, text, image } = req.body;
@@ -113,7 +115,8 @@ chatRouter.post("/send", async (req, res) => {
     }
 });
 
-// to get chats for user 
+// All conversations for the authenticated user.
+
 chatRouter.get("/user" , async (req, res) =>{
     try{
         const userId =  req.user._id;
@@ -126,7 +129,6 @@ chatRouter.get("/user" , async (req, res) =>{
         .populate("property" , "title price images")
         .sort({ updatedAt: -1});
 
-
         res.json(chats);
 
     }
@@ -135,13 +137,12 @@ chatRouter.get("/user" , async (req, res) =>{
             message: "Error fatching user chats",
             error: error.message
 
-
         })
     }   
 })
 
+// Messages for one chat (participants only).
 
-// to get chat message
 chatRouter.get("/:chatId" , async (req , res) => {
     try {
         const chat = await Chat.findById(req.params.chatId).populate(
@@ -171,7 +172,8 @@ chatRouter.get("/:chatId" , async (req , res) => {
     }
 }) 
 
-//to delete an entire chat
+// Remove entire conversation.
+
 chatRouter.delete("/:chatId" , async (req,res) =>{
     try{
         const userId = req.user._id;
@@ -191,7 +193,6 @@ chatRouter.delete("/:chatId" , async (req,res) =>{
         await Chat.findByIdAndDelete(req.params.chatId);
         res.json({ message:" chat deleted successfully!"});
 
-
     }
 
     catch(error){
@@ -204,8 +205,8 @@ chatRouter.delete("/:chatId" , async (req,res) =>{
     }
 })
 
+// Sender-only message delete.
 
-// to delete a specific message
 chatRouter.delete("/:chatId/message/:messageId" ,  async (req, res) =>{
     try{
         const userId = req.user._id;
@@ -230,7 +231,6 @@ chatRouter.delete("/:chatId/message/:messageId" ,  async (req, res) =>{
         chat.messages.pull(req.params.messageId);
         await chat.save();
         res.json({message: "Message deleted successfully " , chat});
-
 
     }
     catch(error){

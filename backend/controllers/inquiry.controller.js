@@ -1,5 +1,9 @@
+// Buyer-to-seller property inquiries.
+
 import Inquiry from '../models/inquiry.model.js';
 import Property from '../models/property.model.js';
+
+// Create inquiry on a property.
 
 export const sendInquiry = async (req, res) =>{
     try{
@@ -46,8 +50,8 @@ export const sendInquiry = async (req, res) =>{
     }
 }
 
+// Inquiries received on seller's listings.
 
-///seller view inquiries
 export  const getSellerInquiries = async (req, res) =>{
     try{
         const inquiries = await Inquiry.find({
@@ -70,12 +74,12 @@ export  const getSellerInquiries = async (req, res) =>{
             message: error.message
         });
 
-
     }
 }
 
-
 // mark inquiries read
+// Seller marks inquiry read.
+
 export const markAsRead = async (req, res) =>{
     try{
 
@@ -102,7 +106,6 @@ export const markAsRead = async (req, res) =>{
             message: error.message
 
         });
-
 
     }
 

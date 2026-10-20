@@ -1,3 +1,5 @@
+// Login form; uses AuthContext.login and role-based redirect.
+
 import React, { useState } from "react";
 import { loginStyles as s } from "../../assets/dummyStyles";
 import Navbar from "../../components/common/Navbar";

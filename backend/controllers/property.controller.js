@@ -1,3 +1,4 @@
+// Property listings: CRUD for sellers, public search, counts, dashboard.
 
 import Property from  '../models/property.model.js'
 import Inquiry from '../models/inquiry.model.js'
@@ -6,8 +7,9 @@ import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
 import cloudinary from '../config/cloudinary.js';
 import jwt from 'jsonwebtoken'
 
-
 // Add a property 
+// Upload images to Cloudinary, create listing for req.user.
+
 export const addProperty = async ( req , res) =>{
     try{
         let imageUrls = [];
@@ -47,7 +49,6 @@ export const addProperty = async ( req , res) =>{
         : [],
     });
 
-
     res.json({
         success: true,
         property
@@ -65,6 +66,8 @@ export const addProperty = async ( req , res) =>{
 }
 
 // to get my properties
+// All listings owned by authenticated seller.
+
 export const getMyProperties = async (req, res) =>{
     try{
         const properties = await Property.find({
@@ -86,8 +89,9 @@ export const getMyProperties = async (req, res) =>{
     }
 }
 
-
 // UPDATE PROPERTY
+// Seller updates listing and optional new images.
+
 export const updateProperty = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
@@ -97,7 +101,6 @@ export const updateProperty = async (req, res) => {
         message: "Property not found",
       });
     }
-
 
     // if seller id is does not matches then this error comes
     if (property.seller.toString() !== req.user._id.toString()) {
@@ -136,7 +139,6 @@ export const updateProperty = async (req, res) => {
       }
     });
 
-
     // for image handling
     if (req.body.existingImages) {
       try {
@@ -172,8 +174,9 @@ export const updateProperty = async (req, res) => {
   }
 };
 
-
 // to delete a property
+// Seller removes listing and Cloudinary assets.
+
 export const deleteProperty = async (req, res) =>{
     try{
      const property = await Property.findById(req.params.id);
@@ -212,6 +215,8 @@ export const deleteProperty = async (req, res) =>{
 }
 
 //update property status
+// Toggle sale/sold.
+
 export const updatedPropertyStatus = async ( req, res) =>{
     try{
      const property = await Property.findById(req.params.id);
@@ -238,7 +243,6 @@ export const updatedPropertyStatus = async ( req, res) =>{
         property
      });
 
-
     }catch(error){
          res.status(500).json({
       success: false,
@@ -249,6 +253,8 @@ export const updatedPropertyStatus = async ( req, res) =>{
 }
 
 // to get all the properties
+// Filtered, paginated public catalog.
+
 export const getAllProperties = async (req, res) => {
   try {
     const {
@@ -330,6 +336,8 @@ export const getAllProperties = async (req, res) => {
 };
 
 // to get properties details
+// Single listing; optional view count for buyers.
+
 export const getPropertiesDetails = async ( req, res) =>{
     try{
      const property = await Property.findById(req.params.id).populate(
@@ -352,7 +360,6 @@ export const getPropertiesDetails = async ( req, res) =>{
             const token = authHeader.split(" ")[1];
             const decoded = jwt.verify( token , process.env.JWT_SECRET);
             visitorId = decoded.id;
-
 
         }catch(error){
 
@@ -387,7 +394,6 @@ export const getPropertiesDetails = async ( req, res) =>{
 
      })
 
-
     }catch( error ){
       res.status(500).json({
         success: false,
@@ -397,8 +403,9 @@ export const getPropertiesDetails = async ( req, res) =>{
     }
 }
 
-
 // seller dahsboard
+// Stats for seller home.
+
 export const getSellerDashboard = async (req, res) =>{
   try{
 
@@ -433,8 +440,6 @@ export const getSellerDashboard = async (req, res) =>{
       }
     })
 
-
-
   }catch(error ){
     res.status(500).json({
       success: false ,
@@ -444,8 +449,7 @@ export const getSellerDashboard = async (req, res) =>{
   }
 }
 
-
-// get all properties counts by type
+// get all properties counts by type. // GET /counts — aggregate counts by propertyType for landing page.
 
 export const getPropertyCounts = async (req , res) =>{
   try{

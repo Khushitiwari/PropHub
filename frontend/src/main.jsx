@@ -1,21 +1,18 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { BrowserRouter } from 'react-router'
-import { AuthProvider } from './context/AuthContext.jsx'
-import { ChatProvider } from './context/ChatContext.jsx'
+// App entry — wraps everything in router, auth, and chat
 
-createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { BrowserRouter } from "react-router";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { ChatProvider } from "./context/ChatContext.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
     <AuthProvider>
-        <ChatProvider>
-           <App />
-
-        </ChatProvider>
-
+      <ChatProvider>
+        <App />
+      </ChatProvider>
     </AuthProvider>
-      
-    </BrowserRouter>
-   
-  
-)
+  </BrowserRouter>,
+);

@@ -1,8 +1,11 @@
+// User profile read/update including avatar upload.
+
 import User from '../models/user.model.js';
 import cloudinary from '../config/cloudinary.js';
 import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
 
-// get profile
+// Current authenticated user (no password).
+
 export const getProfile = async (req, res) =>{
     try{
 
@@ -14,7 +17,6 @@ export const getProfile = async (req, res) =>{
 
     }catch(error){
 
-
         res.status(500).json({
             success:false,
             message:error.message,
@@ -23,8 +25,8 @@ export const getProfile = async (req, res) =>{
     }
 }
 
+// Limited public fields for any user profile page.
 
-// to get public profile
 export const getPublicProfile  = async (req ,res) =>{
     try{
 
@@ -51,7 +53,7 @@ export const getPublicProfile  = async (req ,res) =>{
     }
 }
 
-//update a profile
+// Multipart optional profilePic; supports removeProfilePic flag.
 
  export const updateProfile = async (req, res) =>{
         
@@ -67,7 +69,6 @@ export const getPublicProfile  = async (req ,res) =>{
             });
          }
 
-
          // image handling
 
          if( req.file ){
@@ -76,7 +77,6 @@ export const getPublicProfile  = async (req ,res) =>{
 
          }else if( removeProfilePic == "true"){
             user.profilePic = null;
-
 
          }
 
@@ -92,16 +92,12 @@ export const getPublicProfile  = async (req ,res) =>{
 
          })
 
-
-
-
     }catch(error){
 
         res.status(500).json({
             success:false,
             message:error.message,
         });
-
 
     }
  }

@@ -1,3 +1,5 @@
+// One place for all HTTP calls to the backend (base URL + /api).
+
 import axios from "axios";
 import API_URL from "../config.js";
 
@@ -5,6 +7,7 @@ export const api = axios.create({
   baseURL: `${API_URL}/api`,
 });
 
+// Add JWT to every request if user is logged in
 api.interceptors.request.use((config) => {
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
@@ -13,6 +16,7 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
+  // FormData needs the browser to set multipart boundary automatically
   if (config.data instanceof FormData && config.headers) {
     delete config.headers["Content-Type"];
   }
@@ -22,7 +26,7 @@ api.interceptors.request.use((config) => {
 
 let onAccountBlocked = null;
 
-/** Register handler for admin-blocked users (called from AuthProvider). */
+// AuthProvider sets this so blocked users get logged out automatically
 export function setAccountBlockedHandler(handler) {
   onAccountBlocked = handler;
 }
