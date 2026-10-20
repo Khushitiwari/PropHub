@@ -1,9 +1,17 @@
-
 import mongoose from "mongoose";
 
-export const connectDB = async() =>{
-    await mongoose.connect("mongodb+srv://khushitiwari1237_db_user:muZWzgOBeUy6Stpk@cluster0.uu5lew4.mongodb.net/?appName=PropHub")
-    .then(()  =>{
-        console.log("DB connected");
-    })
-} 
+export const connectDB = async () => {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    console.error("MONGODB_URI is not set in environment variables");
+    process.exit(1);
+  }
+
+  try {
+    await mongoose.connect(uri);
+    console.log("DB connected");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
+};

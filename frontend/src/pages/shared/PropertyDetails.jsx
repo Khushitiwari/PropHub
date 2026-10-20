@@ -1,11 +1,10 @@
 
 import React , { useEffect, useState } from 'react'
+import api from '../../api/client.js'
 import { propertyDetailsStyles as s  } from '../../assets/dummyStyles.js'
 import Navbar from'../../components/common/Navbar.jsx'
 import { useParams  , useNavigate , Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx'
-import axios from 'axios'
-import API_URL from '../../config.js'
 import {   HiX , HiChevronLeft, HiChevronRight, HiLocationMarker, HiOutlineHome  , HiHeart  , HiOutlineHeart , HiCalendar ,  HiOutlineViewGrid,  HiCollection , HiOutlineUserGroup, HiBadgeCheck  , HiChatAlt  } from 'react-icons/hi'
 import PropertyCard from '../../components/common/PropertyCard.jsx'
 
@@ -36,7 +35,7 @@ const PropertyDetails = () => {
     const fetchDetails = async () =>{
       try{
         setLoading(true);
-        const res = await axios.get(`${API_URL}/api/property/${id}` , {
+        const res = await api.get(`/property/${id}` , {
            headers : token ? { Authorization: `Bearer ${token}`} : {}, 
 
         });
@@ -44,7 +43,7 @@ const PropertyDetails = () => {
         setSimilarProperties(res.data.similarProperties || [] );
 
         if( user && user.role === "buyer" && token ){
-            const wishRes = await axios.get(`${API_URL}/api/wishlist` ,{
+            const wishRes = await api.get(`/wishlist` ,{
             headers: { Authorization: `Bearer ${token}`},
           });
           const found = wishRes.data.some((item) => item.property?._id === id );
@@ -68,13 +67,12 @@ const PropertyDetails = () => {
      if( !user ) return navigate("/login");
      try{
       if( isInWishlist ){
-        await axios.delete(`${API_URL}/api/wishlist/${id}`, {
+        await api.delete(`/wishlist/${id}`, {
            headers :{ Authorization : `Bearer ${token}` },
         });
         setIsInWishlist(false);
       }else{
-        await axios.post(
-          `${API_URL}/api/wishlist/${id}` ,{} ,
+        await api.post(`/wishlist/${id}` ,{} ,
           {
             headers : { Authorization: `Bearer ${token}`}
           }
@@ -95,8 +93,7 @@ const PropertyDetails = () => {
     if( user.role !== "buyer" ) return alert("Only buyers can send inquiries");
     setInquiryStatus({...inquiryStatus , loading: true});
     try {
-      await axios.post(
-        `${API_URL}/api/inquiry` , {
+      await api.post(`/inquiry` , {
           propertyId : id,
           message : inquiry.message,
 
@@ -124,37 +121,27 @@ const PropertyDetails = () => {
        return alert(" Only buyer can chat with selllers ");
 
        try{
-         const res = await axios.post(
-          `${API_URL}/api/chat/start` ,{
+         const res = await api.post(`/chat/start` ,{
             propertyId: id,
             sellerId: property.seller._id,
 
-          },{
-            headers: { Authorization: `Bearer ${token}`}
           }
          )
 
          const chat = res.data;
-         await axios.post(
-           `${API_URL}/api/chat/send` , {
+         await api.post(`/chat/send` , {
             chatId : chat._id,
             text: `(Content : Interested in property "${property.title}")`,
             image: property.images[0],
-           } , { headers: {Authorization: `Bearer ${token}`}}
+           } 
          )
          navigate("/chat-messages" , {state: { chat} });
          try {
-    await axios.post(
-        `${API_URL}/api/chat/send`,
+    await api.post(`/chat/send`,
         {
             chatId: chat._id,
             text: `(Content: Interested in property "${property.title}")`,
             image: property.images[0],
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
         }
     );
     } catch (error) {

@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useEffect as useEffectHook  , useRef, useMemo} from "react";
+import api from "../../api/client.js";
 import { adminUsersStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
-import axios from "axios";
 import { HiOutlineFilter, HiOutlineIdentification, HiOutlineLockClosed, HiOutlineLockOpen, HiOutlineTrash ,HiOutlineMail} from 'react-icons/hi'
-import API_URL from '../../config';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -18,7 +17,7 @@ const AdminUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/admin/users`, {
+        const res = await api.get(`/admin/users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -53,12 +52,8 @@ const AdminUsers = () => {
   // to block a particular user
   const handleBlock = async (id) =>{
     try{
-      const res = await axios.patch(
-        `${API_URL}/api/admin/users/${id}/block`,
+      const res = await api.patch(`/admin/users/${id}/block`,
         {},
-        {
-            headers: { Authorization: `Bearer ${token}`},
-        },
       );
 
       if( res.data.success){
@@ -84,7 +79,7 @@ const AdminUsers = () => {
 
      try{
 
-      await axios.delete(`${API_URL}/api/admin/users/${id}`,{
+      await api.delete(`/admin/users/${id}`,{
         headers: { Authorization: `Bearer ${token}`},
       });
       setUsers( users.filter((u) => u._id !== id ));

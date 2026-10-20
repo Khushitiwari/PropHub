@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import api from "../../api/client.js";
 import { addPropertyStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
-import axios from "axios";
-import API_URL from "../../config";
 import { useNavigate } from "react-router";
 import { HiUpload } from "react-icons/hi"
 
@@ -95,7 +94,7 @@ const AddProperty = () => {
     images.forEach((img) => data.append("images", img));
 
     try {
-      await axios.post(`${API_URL}/api/property`, data, {
+      await api.post(`/property`, data, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

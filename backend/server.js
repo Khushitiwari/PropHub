@@ -4,6 +4,7 @@ import 'dotenv/config';
 import http from 'http';
 import { Server} from 'socket.io';
 import { connectDB } from './config/db.js';
+import { getAllowedOrigins } from './config/cors.js';
 import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
 import propertyRouter from './routes/property.routes.js';
@@ -14,20 +15,14 @@ import adminRouter from './routes/admin.routes.js';
 import chatRouter from './routes/chat.routes.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // database connection
 connectDB();
 
 
 //middlewares 
-const allowedOrigins = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-     "http://localhost:5175",
-     "https://prop-hub-rho.vercel.app"
-
-].filter(Boolean);
+const allowedOrigins = getAllowedOrigins();
 app.use(cors({
     origin: function (origin , callback) {
         if( !origin || allowedOrigins.includes(origin)){

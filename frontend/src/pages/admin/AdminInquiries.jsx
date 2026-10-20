@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { adminInquiriesStyles as s  } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
-import axios from 'axios';
 import { HiOutlineAnnotation, HiOutlineCalendar, HiOutlineHome } from 'react-icons/hi';
- import API_URL from '../../config';
-
+import api from "../../api/client.js";
+ 
 
 const AdminInquiries = () => {
 
@@ -20,10 +19,7 @@ const AdminInquiries = () => {
     setLoading(true);
     try{
         console.log("Fetching inquiries...");
-        const res = await axios.get(`${API_URL}/api/admin/inquiries` , {
-          headers: {Authorization: `Bearer ${token}`}
-
-        });
+        const res = await api.get(`/admin/inquiries` );
 
         console.log("Inquiries response:" , res.data);
         if( res.data.success){

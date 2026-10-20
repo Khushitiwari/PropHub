@@ -158,7 +158,8 @@ PropHub/
 │   ├── src/
 │   │   ├── main.jsx          # App bootstrap + providers
 │   │   ├── App.jsx           # Route definitions
-│   │   ├── config.js         # API base URL (VITE_API_URL)
+│   │   ├── config.js         # API origin for Socket.io (VITE_API_URL)
+│   │   ├── api/              # Axios client + error helpers
 │   │   ├── context/          # AuthContext, ChatContext
 │   │   ├── components/       # Layouts, Navbar, PropertyCard, guards
 │   │   └── pages/            # auth, shared, buyer, seller, admin
@@ -166,7 +167,8 @@ PropHub/
 │
 └── backend/                  # Express API + Socket.io
     ├── server.js             # Entry: CORS, routes, HTTP server, sockets
-    ├── config/               # Database, Cloudinary
+    ├── config/               # Database, Cloudinary, CORS helpers
+    ├── .env.example          # Required environment variables (no secrets)
     ├── models/               # User, Property, Inquiry, Wishlist, Chat, Contact
     ├── routes/               # API route mounts
     ├── controllers/          # Request handlers
@@ -255,9 +257,7 @@ cd backend
 npm install
 ```
 
-Create `backend/.env` (see [Environment variables](#environment-variables)).
-
-Ensure MongoDB connection is configured in `config/db.js` or via `MONGODB_URI` if you refactor the connector to use env (recommended for production).
+Create `backend/.env` from `backend/.env.example` (see [Environment variables](#environment-variables)).
 
 ```bash
 npm start
@@ -286,7 +286,7 @@ App runs at **http://localhost:5173** (Vite default).
 
 ### 4. CORS
 
-For local dev, `backend/server.js` allows `http://localhost:5173` (and 5174/5175). When you deploy a new frontend URL, add it to `allowedOrigins` and **redeploy the backend**.
+Set `CORS_ORIGINS` in `backend/.env` (include your Vercel URL and local dev origins). If unset, defaults to common localhost ports plus `FRONTEND_URL` when provided. **Redeploy the backend** after changing origins in production.
 
 ---
 
@@ -294,16 +294,20 @@ For local dev, `backend/server.js` allows `http://localhost:5173` (and 5174/5175
 
 ### Backend (`backend/.env`)
 
+Copy from `backend/.env.example`. All values are read at runtime (12-factor config).
+
 | Variable | Required | Description |
 |----------|----------|-------------|
+| `MONGODB_URI` | Yes | MongoDB connection string |
 | `JWT_SECRET` | Yes | Secret for signing JWTs |
 | `BREVO_API_KEY` | Yes | Brevo API key for email |
 | `EMAIL_USER` | Yes | Verified sender email in Brevo |
 | `CLOUD_NAME` | Yes | Cloudinary cloud name |
 | `CLOUD_KEY` | Yes | Cloudinary API key |
 | `CLOUD_SECRET` | Yes | Cloudinary API secret |
-| `CLIENT_URL` | Recommended | Frontend URL for password-reset links (use in auth controller instead of hardcoded localhost) |
-| `MONGODB_URI` | Recommended | MongoDB connection string (prefer env over hardcoding in `db.js`) |
+| `FRONTEND_URL` | Yes (prod) | Public SPA URL for password-reset links |
+| `CORS_ORIGINS` | Recommended | Comma-separated browser origins allowed to call the API |
+| `PORT` | Optional | HTTP port (default `5000`; Render sets this automatically) |
 
 Never commit `.env` files. Both `frontend/.gitignore` and `backend/.gitignore` exclude them.
 

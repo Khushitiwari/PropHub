@@ -1,9 +1,8 @@
 import { useState } from "react";
+import api from "../../api/client.js";
 import { verifyEmailStyles as s  } from "../../assets/dummyStyles"
 import { useLocation, useNavigate } from "react-router";
 import Navbar from "../../components/common/Navbar";
-import axios from "axios";
-import API_URL from "../../config.js";
 
 const VerifyEmail = () => {
 
@@ -28,7 +27,7 @@ const VerifyEmail = () => {
       setSuccess("");
 
       try{
-        const res = await axios.post(`${API_URL}/api/auth/verify-email` , {
+        const res = await api.post(`/auth/verify-email` , {
             email,
             code,
 

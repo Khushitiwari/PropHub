@@ -1,8 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { sellerDashboardStyles as s } from '../../assets/dummyStyles'
 import {useAuth } from '../../context/AuthContext.jsx';
-import axios from 'axios';
-import API_URL from '../../config.js';
+import api from "../../api/client.js";
 import {Link} from 'react-router-dom'
 import { HiOutlineEye ,HiOutlineUserGroup , HiOutlineLibrary , HiOutlineCheckCircle , HiOutlineDownload , HiPlus,  HiOutlineSearch, HiOutlinePencilAlt, HiOutlineTrash , HiOutlineBell} from 'react-icons/hi';
 import PropertyCard from '../../components/common/PropertyCard.jsx';
@@ -32,14 +31,14 @@ const SellerDashboard = () => {
 
       try{
        const [ statsRes , propsRes , inqRes ] = await Promise.all([
-        axios.get(`${API_URL}/api/property/seller/dashboard`, {
+        api.get(`/property/seller/dashboard`, {
           headers : {Authorization: `Bearer ${token}`},
 
         }),
-        axios.get(`${API_URL}/api/property/my` , {
+        api.get(`/property/my` , {
           headers: {Authorization: `Bearer ${token}`},
         }),
-        axios.get(`${API_URL}/api/inquiry/seller` , {
+        api.get(`/inquiry/seller` , {
           headers: {Authorization : `Bearer ${token}`},
         }),
 
@@ -71,7 +70,7 @@ const SellerDashboard = () => {
     if( !window.confirm(" Are you sure you want to delete this listing?"))
       return;
     try{
-      await axios.delete(`${API_URL}/api/property/${id}`, {
+      await api.delete(`/property/${id}`, {
         headers : {Authorization: `Bearer ${token}`},
       });
 
@@ -88,8 +87,7 @@ const SellerDashboard = () => {
   const handleStatusUpdate =  async (id , currentStatus) =>{
     const newStatus = currentStatus  === "sold" ? "sale" : "sold";
   try{
-    await axios.patch(
-      `${API_URL}/api/property/${id}/status` , {
+    await api.patch(`/property/${id}/status` , {
         status : newStatus
       }, {
         headers : {Authorization : `Bearer ${token}`},

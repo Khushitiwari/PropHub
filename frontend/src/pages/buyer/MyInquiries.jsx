@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { myInquiriesStyles as s } from '../../assets/dummyStyles'
 import { useNavigate  , Link} from 'react-router-dom';
-import axios from 'axios';
+import api from "../../api/client.js";
 import Navbar from '../../components/common/Navbar'
-import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
 import { HiOutlineChatAlt2 , HiHome, HiUser, HiMail , HiPhone, HiCalendar, HiCheckCircle, HiExternalLink, HiChatAlt2 } from 'react-icons/hi';
 
@@ -20,7 +19,7 @@ const MyInquiries = () => {
         if(!user) return;
         try{
            const endpoint = user?.role ==="seller" ? "seller" : "my";
-           const res = await axios.get(`${API_URL}/api/inquiry/${endpoint}` , {
+           const res = await api.get(`/inquiry/${endpoint}` , {
              headers:{Authorization:`Bearer ${token}`},
            });
 
@@ -44,8 +43,7 @@ const MyInquiries = () => {
  const markAsRead = async (id) => {
     try{
 
-      await axios.patch(
-        `${API_URL}/api/inquiry/${id}`,{
+      await api.patch(`/inquiry/${id}`,{
           headers : {Authorization: `Bearer ${token}` },
         },
       );
@@ -64,8 +62,7 @@ const MyInquiries = () => {
 
  const handleStartChat = async (inq) => {
   try{
-    const res = await axios.post(
-      `${API_URL}/api/chat/start`, {
+    const res = await api.post(`/chat/start`, {
         propertyId: inq.property?._id,
         buyerId: inq.buyer?._id,
 

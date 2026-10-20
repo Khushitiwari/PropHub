@@ -1,11 +1,10 @@
 import React , { useState  , useEffect , useRef } from 'react'
+import api from '../../api/client.js'
 import { propertiesStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { HiAdjustments, HiFilter , HiSearch, HiViewGrid, HiViewList, HiX } from 'react-icons/hi'
 import Navbar from '../../components/common/Navbar.jsx'
-import axios from 'axios'
 import { useLocation , useNavigate } from 'react-router-dom'
-import API_URL from '../../config'
 import PropertyCard from '../../components/common/PropertyCard.jsx'
 
 
@@ -73,7 +72,7 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
 
   const fetchWishlist = async () =>{
     try{
-      const res = await axios.get(`${API_URL}/api/wishlist` , {
+      const res = await api.get(`/wishlist` , {
         headers:{ Authorization : `Bearer ${token}`},
       });
       setWishlsitedIds(
@@ -92,17 +91,13 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
     try{
       const isWishlisted = wishlistedIds.includes(propertyId);
       if( isWishlisted ){
-        await axios.delete(`${API_URL}/api/wishlist/${propertyId}`,{
+        await api.delete(`/wishlist/${propertyId}`,{
           headers: { Authorization: `Bearer ${token}`},
         });
         setWishlsitedIds((prev) => prev.filter(( id ) => id !== propertyId ));
       }else{
-        await axios.post(
-          `${API_URL}/api/wishlist/${propertyId}`,
-          {},
-          {
-            headers: {Authorization : `Bearer ${token}`}
-          }
+        await api.post(`/wishlist/${propertyId}`,
+          {}
         );
         setWishlsitedIds((prev) => [...prev , propertyId]);
       }
@@ -128,8 +123,7 @@ import PropertyCard from '../../components/common/PropertyCard.jsx'
         params.append("furnishing", currentFilters.furnishing.join(","));
       if (currentFilters.sort) params.append("sort", currentFilters.sort);
 
-      const res = await axios.get(
-        `${API_URL}/api/property?${params.toString()}`,
+      const res = await api.get(`/property?${params.toString()}`,
       );
       setProperties(res.data.properties);
       setError(null);

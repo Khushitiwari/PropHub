@@ -218,15 +218,26 @@ export const forgotPassword = async ( req, res ) =>{
        user.resetPasswordExpire = resetPasswordExpire
        await user.save(); // save krrlo user db me
 
-       const clientUrl = "http://localhost:5173"; // frontend url 
-       const resetUrl = `${clientUrl}/reset-passowrd/${resetToken}`;
+       const clientUrl =
+         process.env.FRONTEND_URL?.trim() || "http://localhost:5173";
+       const resetUrl = `${clientUrl}/reset-password/${resetToken}`;
        const message =  `
            <h2> Password Reset request </h2>
            <p> You requested a password reset. Please click on the link below to reset your password: </p>
-           <a href="${resetUrl}" clicktracking="off> ${ resetUrl}</a>
+           <a href="${resetUrl}" clicktracking="off">${resetUrl}</a>
            <p> This link will expire in 15 minutes </p>
        `;
 
+       await sendEmail({
+         email: user.email,
+         subject: "PropHub password reset",
+         message,
+       });
+
+       res.json({
+         success: true,
+         message: "Password reset link has been sent to your email",
+       });
     }catch( error ){
         res.status(500).json({
             message: error.message,

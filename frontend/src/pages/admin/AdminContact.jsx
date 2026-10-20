@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { adminContactsStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
-import axios from 'axios';
-import API_URL from '../../config';
 import { HiOutlineMail , HiOutlinePhone , HiOutlineClock  } from 'react-icons/hi';
+import api from "../../api/client.js";
 
 const AdminContact = () => {
 
@@ -17,7 +16,7 @@ const AdminContact = () => {
     const fetchContacts = async () => {
         try{
 
-            const res = await axios.get(`${API_URL}/api/contact` , {
+            const res = await api.get(`/contact` , {
                 headers :{ Authorization: `Bearer ${token}` },
             });
 

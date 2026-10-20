@@ -1,8 +1,7 @@
 import React, { useEffect , useState } from 'react'
 import { sellerRequestsStyles as s} from '../../assets/dummyStyles';
+import api from "../../api/client.js";
 import { useAuth } from '../../context/AuthContext';
-import axios from 'axios';
-import API_URL from '../../config';
 import { HiOutlineCheckCircle , HiOutlineClock  , HiOutlineMail , HiOutlinePhone} from 'react-icons/hi'
 
 const SellerRequests = () => {
@@ -15,7 +14,7 @@ const SellerRequests = () => {
     useEffect(() => {
         const fetchRequest = async () =>{
             try{
-              const res = await axios.get(`${API_URL}/api/admin/pending-sellers` , {
+              const res = await api.get(`/admin/pending-sellers` , {
                 headers: { Authorization: `Bearer ${token}`},
               });
 
@@ -38,8 +37,7 @@ const SellerRequests = () => {
     // to approve a seller
     const handleApprove = async (id) => {
         try{
-            const res = await axios.patch(
-                `${API_URL}/api/admin/approve-seller/${id}`,{},
+            const res = await api.patch(`/admin/approve-seller/${id}`,{},
                 { headers : { Authorization : `Bearer ${token}`}}
             );
 

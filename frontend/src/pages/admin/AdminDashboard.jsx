@@ -1,10 +1,9 @@
 import React , {useEffect, useState} from 'react'
 import { adminDashboardStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
-import API_URL from '../../config';
-import axios from 'axios';
 
 import {  HiOutlineUserGroup ,HiOutlineLibrary , HiOutlineTicket ,HiOutlineCheckCircle  } from 'react-icons/hi';
+import api from "../../api/client.js";
 
 const AdminDashboard = () => {
     const [ stats , setStats ] = useState({
@@ -24,7 +23,7 @@ const AdminDashboard = () => {
      console.log("Admin Dashboard mounted");
      const fetchDashboardData = async () => {
         try{
-            const res = await axios.get( `${API_URL}/api/admin/stats` ,{
+            const res = await api.get(`/admin/stats` ,{
                 headers: { Authorization: `Bearer ${token}`},
             } );
 

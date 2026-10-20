@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { adminPropertiesStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext';
+import api from "../../api/client.js";
 import PropertyCard from '../../components/common/PropertyCard';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 import { HiOutlineExternalLink, HiOutlineTrash } from 'react-icons/hi';
 
@@ -15,7 +15,7 @@ const AdminProperties = () => {
     useEffect(() => {
         const fetchProperties = async () => {
             try{
-              const res = await axios.get(`${API_URL}/api/admin/properties`, {
+              const res = await api.get(`/admin/properties`, {
                 headers: { Authorization : `Bearer ${token}`},
               });
               const props = Array.isArray(res.data) ?
@@ -42,7 +42,7 @@ const AdminProperties = () => {
 
 
         try{
-            await axios.delete(`${API_URL}/api/admin/properties/${id}`,{
+            await api.delete(`/admin/properties/${id}`,{
                 headers: { Authorization: `Bearer ${token}`},
 
             } );

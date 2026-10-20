@@ -1,10 +1,9 @@
 import React , { useState } from 'react'
+import api from '../../api/client.js'
 import { profileStyles as s } from '../../assets/dummyStyles'
 import { useAuth } from '../../context/AuthContext'
 import Navbar from '../../components/common/Navbar'
 import { HiCheck, HiOutlineLocationMarker, HiOutlineMail, HiOutlinePhone, HiOutlineUser , HiX } from 'react-icons/hi'
-import axios from 'axios'
-import API_URL from "../../config.js";
 
 const Profile = () => {
 
@@ -82,14 +81,8 @@ const Profile = () => {
             data.append("removeProfilePic", "true");
         }
 
-        const res = await axios.put(
-            `${API_URL}/api/user/profiles`,
-            data,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+        const res = await api.put(`/user/profiles`,
+            data
         );
 
         if (res.data.success) {

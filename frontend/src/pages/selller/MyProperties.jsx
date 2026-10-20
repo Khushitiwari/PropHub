@@ -1,10 +1,8 @@
 import React  ,{ useState , useEffect } from 'react'
-
+import api from '../../api/client.js'
 import { myPropertiesStyles as s } from '../../assets/dummyStyles'
 import {useAuth} from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import API_URL from '../../config'
 import { HiOutlineCheckCircle, HiOutlineLibrary, HiOutlinePencilAlt, HiOutlineTrash } from 'react-icons/hi'
 import PropertyCard from '../../components/common/PropertyCard'
 
@@ -18,9 +16,7 @@ const MyProperties = () => {
   // to fetch the properties  coming from the server side for this seller
   const fetchMyProperties = async () => {
     try{
-      const res = await axios.get(`${API_URL}/api/property/my` , {
-        headers: {Authorization: `Bearer ${token}` }
-      });
+      const res = await api.get(`/property/my` );
       const props = Array.isArray(res.data) ? res.data : res.data.properties || [];
       setProperties(props);
       setLoading(false);
@@ -45,7 +41,7 @@ const MyProperties = () => {
 
    try{
 
-    await axios.delete(`${API_URL}/api/property/${id}`,{
+    await api.delete(`/property/${id}`,{
       headers: {Authorization: `Bearer ${token}` },
 
     });
@@ -61,13 +57,9 @@ const MyProperties = () => {
   const updateStatus = async (id , newStatus ) => {
     try{
 
-      await axios.patch(
-        `${API_URL}/api/property/${id}/status`,
+      await api.patch(`/property/${id}/status`,
         {
           status: newStatus,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}`},
         },
 
       );

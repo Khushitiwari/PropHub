@@ -1,11 +1,10 @@
 import React , { useEffect, useState } from 'react';
+import api from "../../api/client.js";
 import { landingPageStyles as s } from '../../assets/dummyStyles';
 import Navbar from '../../components/common/Navbar.jsx';
 import { HiLocationMarker , HiOfficeBuilding , HiHome , HiShieldCheck , HiLightningBolt ,HiCurrencyDollar, HiVideoCamera, HiSearch , HiMail , HiPhone  } from 'react-icons/hi';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../context/AuthContext.jsx';
-import axios from 'axios';
-import API_URL from '../../config.js';
 import banner from '../../assets/bannerimage.png'
 import PropertyCard from '../../components/common/PropertyCard.jsx'
 import {FaFacebookF , FaTwitter , FaInstagram , FaLinkedinIn} from 'react-icons/fa'
@@ -42,7 +41,7 @@ const LandingPage = () => {
 
   const fetchWishlist = async () =>{
     try{
-      const res = await axios.get(`${API_URL}/api/wishlist` , {
+      const res = await api.get(`/wishlist` , {
         headers: { Authorization: `Bearer ${token}`},
       });
       setWishlistedIds(
@@ -62,13 +61,13 @@ const LandingPage = () => {
    try{
     const isWishlisted = wishlistedIds.includes( propertyId );// incclude is array method to checl whether array contains that value
     if( isWishlisted ){
-      await axios.delete(`${API_URL}/api/wishlist${propertyId}`, {
+      await api.delete(`/wishlist/${propertyId}`, {
         headers: {Authorization: `Bearer ${token}`},
 
       });
       setWishlistedIds((prev) => prev.filter((id) =>  id !== propertyId))
     }else{
-      await axios.post(`${API_URL}/api/wishlist/${propertyId}`, {}, 
+      await api.post(`/wishlist/${propertyId}`, {}, 
         {
           headers : { Authorization: `Bearer ${token}`},
         }
@@ -86,7 +85,7 @@ const LandingPage = () => {
   // to fetch counts
   const fetchCounts =  async () => {
     try{
-    const res = await axios.get(`${API_URL}/api/property/counts`);
+    const res = await api.get(`/property/counts`);
     if( res.data.success){
       setPropertyCounts(res.data.counts);
       }
@@ -100,7 +99,7 @@ const LandingPage = () => {
 
     try{
       setLoading(true)
-      const res = await axios.get(`${API_URL}/api/property?city=${ search }`);
+      const res = await api.get(`/property?city=${ search }`);
       setProperties(res.data.properties || res.data || []);
       setError(null);
     }catch(error){

@@ -1,9 +1,8 @@
 import React, {useState , useEffect} from 'react'
+import api from '../../api/client.js'
 import { editPropertyStyles as s } from '../../assets/dummyStyles'
 import {useAuth } from'../../context/AuthContext'
 import { useParams , useNavigate } from 'react-router-dom'
-import API_URL from '../../config'
-import axios from 'axios'
 import { HiX , HiUpload } from 'react-icons/hi'
 
 const EditProperty = () => {
@@ -50,7 +49,7 @@ const EditProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
         try{
-         const res = await axios.get(`${API_URL}/api/property/${id}`);
+         const res = await api.get(`/property/${id}`);
          const p = res.data.property;
          setFormData({
           title: p.title || "",
@@ -147,7 +146,7 @@ const EditProperty = () => {
 
 
     try{
-        await axios.put(`${API_URL}/api/property/${id}` , data , {
+        await api.put(`/property/${id}` , data , {
             headers : {
                 "Content-Type": "multipart/form-data",
                 Authorization:`Bearer ${token}`,

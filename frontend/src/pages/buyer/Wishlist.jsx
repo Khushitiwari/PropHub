@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { wishlistStyles as s } from '../../assets/dummyStyles';
+import api from "../../api/client.js";
 import {useAuth } from '../../context/AuthContext';
 import Navbar  from '../../components/common/Navbar'
-import axios from 'axios';
-import API_URL from '../../config';
 import { HiHeart, HiTrash } from 'react-icons/hi';
 
 import { Link } from 'react-router-dom';
@@ -24,7 +23,7 @@ const Wishlist = () => {
 
   const fetchWishlist = async () => {
     try{
-      const res = await axios.get(`${API_URL}/api/wishlist` ,{
+      const res = await api.get(`/wishlist` ,{
         headers : { Authorization : `Bearer ${token}`}, 
       } );
 
@@ -47,7 +46,7 @@ const Wishlist = () => {
      }
 
      try{
-        await axios.delete(`${API_URL}/api/wishlist/${propertyId}`, {
+        await api.delete(`/wishlist/${propertyId}`, {
           headers : { Authorization : `Bearer ${token}`},
         });
 

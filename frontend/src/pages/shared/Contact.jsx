@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import api from "../../api/client.js";
 import { contactStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 
-import axios from "axios";
-import API_URL from "../../config";
 import Navbar from "../../components/common/Navbar";
 import { HiOutlineCheckCircle, HiOutlineMail, HiOutlinePhone, HiOutlineUser , HiOutlineAnnotation } from "react-icons/hi";
 
@@ -31,7 +30,7 @@ const Contact = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(`${API_URL}/api/contact`, formData);
+      const res = await api.post(`/contact`, formData);
       if (res.data.success) {
         setSuccess(true);
         setFormData({ ...formData, message: "" });

@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { resetPasswordStyles as s  } from '../../assets/dummyStyles'
 import Navbar from '../../components/common/Navbar';
+import api from "../../api/client.js";
 import { useNavigate, useParams , Link } from 'react-router-dom';
 
 import {HiEyeOff  , HiEye } from 'react-icons/hi'
-import axios from 'axios';
-import API_URL from "../../config.js";
 
 
 
@@ -35,8 +34,7 @@ const ResetPassword = () => {
         setSuccess("");
 
         try{
-            const res = await axios.post(
-                `${API_URL}/api/auth/reset-password/${token}`,
+            const res = await api.post(`/auth/reset-password/${token}`,
                 { password },
             );
 

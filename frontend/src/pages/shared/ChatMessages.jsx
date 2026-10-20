@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import api from "../../api/client.js";
 import { chatMessagesStyles as s } from "../../assets/dummyStyles";
 import { useLocation } from "react-router";
 import { useChat } from "../../context/ChatContext";
 import { useAuth } from "../../context/AuthContext";
-import API_URL from "../../config";
-import axios from "axios";
 import Navbar from "../../components/common/Navbar";
 import {
   HiOutlineChatAlt2,
@@ -34,7 +33,7 @@ const ChatMessages = () => {
   useEffect(() => {
     const fetchConversations = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/chat/user`, {
+        const res = await api.get(`/chat/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -68,7 +67,7 @@ const ChatMessages = () => {
     if (activeChat) {
       const fetchMessages = async () => {
         try {
-          const res = await axios.get(`${API_URL}/api/chat/${activeChat._id}`, {
+          const res = await api.get(`/chat/${activeChat._id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setMessages(res.data.messages || []);
@@ -115,14 +114,10 @@ const ChatMessages = () => {
     setNewMessage("");
 
     try {
-      const res = await axios.post(
-        `${API_URL}/api/chat/send`,
+      const res = await api.post(`/chat/send`,
         {
           chatId: activeChat._id,
           text: textToSend,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
         },
       );
 
@@ -166,7 +161,7 @@ const ChatMessages = () => {
       return;
 
     try {
-      await axios.delete(`${API_URL}/api/chat/${chatId}`, {
+      await api.delete(`/chat/${chatId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -182,11 +177,7 @@ const ChatMessages = () => {
     if (!window.confirm("Delete this message")) return;
 
     try {
-      const res = await axios.delete(
-        `${API_URL}/api/chat/${chatId}/message/${msgId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
+      const res = await api.delete(`/chat/${chatId}/message/${msgId}`,
       );
       setMessages(res.data.chat.messages);
     } catch (error) {
