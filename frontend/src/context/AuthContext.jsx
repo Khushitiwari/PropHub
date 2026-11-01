@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(
     localStorage.getItem("token") || sessionStorage.getItem("token") || null,
   );
+  
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
