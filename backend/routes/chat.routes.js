@@ -4,6 +4,13 @@ import express from "express"
 
 import Chat from '../models/chat.model.js';
 import { protect } from '../middlewares/auth.js';
+import { validate } from "../middlewares/validate.middleware.js";
+import {
+  startChatSchema,
+  sendChatMessageSchema,
+  chatIdParamsSchema,
+  chatMessageParamsSchema,
+} from "../validation/chat.schema.js";
 
 const chatRouter = express.Router();
 
@@ -11,7 +18,7 @@ chatRouter.use(protect);
 
 // Find or create buyer–seller thread for a property.
 
-chatRouter.post("/start" , async(req,res)=>{
+chatRouter.post("/start", validate({ body: startChatSchema }), async(req,res)=>{
     try{
         const { propertyId , sellerId , buyerId:providedBuyerId } = req.body;
         let buyerId , finalSellerId;
@@ -64,7 +71,7 @@ chatRouter.post("/start" , async(req,res)=>{
 
 // Persist message on Chat document.
 
-chatRouter.post("/send", async (req, res) => {
+chatRouter.post("/send", validate({ body: sendChatMessageSchema }), async (req, res) => {
     try {
         const { chatId, text, image } = req.body;
         const userId = req.user._id;
@@ -143,7 +150,7 @@ chatRouter.get("/user" , async (req, res) =>{
 
 // Messages for one chat (participants only).
 
-chatRouter.get("/:chatId" , async (req , res) => {
+chatRouter.get("/:chatId", validate({ params: chatIdParamsSchema }), async (req , res) => {
     try {
         const chat = await Chat.findById(req.params.chatId).populate(
             "messages.sender",
@@ -174,7 +181,7 @@ chatRouter.get("/:chatId" , async (req , res) => {
 
 // Remove entire conversation.
 
-chatRouter.delete("/:chatId" , async (req,res) =>{
+chatRouter.delete("/:chatId", validate({ params: chatIdParamsSchema }), async (req,res) =>{
     try{
         const userId = req.user._id;
         const chat = await Chat.findById(req.params.chatId);
@@ -207,7 +214,10 @@ chatRouter.delete("/:chatId" , async (req,res) =>{
 
 // Sender-only message delete.
 
-chatRouter.delete("/:chatId/message/:messageId" ,  async (req, res) =>{
+chatRouter.delete(
+  "/:chatId/message/:messageId",
+  validate({ params: chatMessageParamsSchema }),
+  async (req, res) =>{
     try{
         const userId = req.user._id;
         const chat = await Chat.findById(req.params.chatId);
